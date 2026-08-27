@@ -1,0 +1,344 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────
+// USER PROFILE
+// ─────────────────────────────────────────
+model UserProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique // Supabase Auth UID
+  name            String   @default("Tharun")
+  age             Int      @default(25)
+  heightCm        Float    @default(178)
+  startingWeight  Float    @default(96)
+  targetWeight    Float    @default(81)
+  calorieTartet   Int      @default(2300)
+  proteinTargetG  Int      @default(160)
+  waterTargetMl   Int      @default(3500)
+  stepTarget      Int      @default(10000)
+  sleepTargetH    Float    @default(8)
+  wakeUpTime      String   @default("06:00")
+  bedTime         String   @default("23:00")
+  gymDaysPerWeek  Int      @default(6)
+  startDate       DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("user_profiles")
+}
+
+// ─────────────────────────────────────────
+// DAILY LOG (one canonical record per date)
+// ─────────────────────────────────────────
+model DailyLog {
+  id                  String   @id @default(cuid())
+  userId              String
+  date                DateTime @db.Date
+  steps               Int?
+  smokingFree         Boolean  @default(true)
+  alcoholFree         Boolean  @default(true)
+  junkFoodFree        Boolean  @default(true)
+  gymCompleted        Boolean  @default(false)
+  transformationScore Float?
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  checklistItems ChecklistItem[]
+  waterEntries   WaterEntry[]
+  sleepEntry     SleepEntry?
+  weightEntry    WeightEntry?
+
+  @@unique([userId, date])
+  @@map("daily_logs")
+}
+
+// ─────────────────────────────────────────
+// CHECKLIST
+// ─────────────────────────────────────────
+model ChecklistItem {
+  id          String    @id @default(cuid())
+  userId      String
+  dailyLogId  String
+  key         String    // e.g. "wake_up", "gym", "breakfast"
+  label       String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  dailyLog DailyLog @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
+
+  @@map("checklist_items")
+}
+
+// ─────────────────────────────────────────
+// WEIGHT
+// ─────────────────────────────────────────
+model WeightEntry {
+  id         String   @id @default(cuid())
+  userId     String
+  dailyLogId String   @unique
+  weightKg   Float
+  notes      String?
+  recordedAt DateTime @default(now())
+
+  dailyLog DailyLog @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
+
+  @@map("weight_entries")
+}
+
+// ─────────────────────────────────────────
+// BODY MEASUREMENTS
+// ─────────────────────────────────────────
+model BodyMeasurement {
+  id            String   @id @default(cuid())
+  userId        String
+  recordedAt    DateTime @default(now())
+  waistCm       Float?
+  chestCm       Float?
+  neckCm        Float?
+  leftArmCm     Float?
+  rightArmCm    Float?
+  thighCm       Float?
+  notes         String?
+
+  @@map("body_measurements")
+}
+
+// ─────────────────────────────────────────
+// WATER
+// ─────────────────────────────────────────
+model WaterEntry {
+  id         String   @id @default(cuid())
+  userId     String
+  dailyLogId String
+  amountMl   Int
+  recordedAt DateTime @default(now())
+
+  dailyLog DailyLog @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
+
+  @@map("water_entries")
+}
+
+// ─────────────────────────────────────────
+// SLEEP
+// ─────────────────────────────────────────
+model SleepEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  dailyLogId  String   @unique
+  bedtime     DateTime
+  wakeUp      DateTime
+  durationMin Int
+  quality     Int?     // 1-5 optional
+  notes       String?
+
+  dailyLog DailyLog @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
+
+  @@map("sleep_entries")
+}
+
+// ─────────────────────────────────────────
+// FOOD ITEMS (nutrition database)
+// ─────────────────────────────────────────
+model FoodItem {
+  id              String      @id @default(cuid())
+  userId          String?     // null = global default, userId = user-customized
+  name            String
+  measurementType String      // RAW | COOKED | AS_SERVED
+  caloriesPer100g Float
+  proteinPer100g  Float
+  carbsPer100g    Float
+  fatPer100g      Float
+  isDefault       Boolean     @default(true)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  mealEntries MealEntry[]
+
+  @@map("food_items")
+}
+
+// ─────────────────────────────────────────
+// MEAL LOG (daily tracked meals)
+// ─────────────────────────────────────────
+model MealLog {
+  id         String   @id @default(cuid())
+  userId     String
+  date       DateTime @db.Date
+  mealKey    String   // e.g. "breakfast", "meal_11am", "lunch"
+  mealLabel  String
+  completed  Boolean  @default(false)
+  completedAt DateTime?
+  notes      String?
+  oilGrams   Float?   @default(0)
+  createdAt  DateTime @default(now())
+
+  entries MealEntry[]
+
+  @@unique([userId, date, mealKey])
+  @@map("meal_logs")
+}
+
+// ─────────────────────────────────────────
+// MEAL ENTRY (individual food in a meal)
+// ─────────────────────────────────────────
+model MealEntry {
+  id          String   @id @default(cuid())
+  mealLogId   String
+  foodItemId  String
+  quantityG   Float
+  calories    Float
+  proteinG    Float
+  carbsG      Float
+  fatG        Float
+
+  mealLog  MealLog  @relation(fields: [mealLogId], references: [id], onDelete: Cascade)
+  foodItem FoodItem @relation(fields: [foodItemId], references: [id])
+
+  @@map("meal_entries")
+}
+
+// ─────────────────────────────────────────
+// WORKOUT SESSIONS
+// ─────────────────────────────────────────
+model WorkoutSession {
+  id          String   @id @default(cuid())
+  userId      String
+  date        DateTime @db.Date
+  dayType     String   // UPPER_A | LOWER_A | CARDIO_CORE | UPPER_B | LOWER_B | REST
+  completed   Boolean  @default(false)
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  notes       String?
+  totalVolume Float?   // weight × reps across all sets
+
+  exerciseLogs ExerciseLog[]
+
+  @@unique([userId, date])
+  @@map("workout_sessions")
+}
+
+// ─────────────────────────────────────────
+// EXERCISE LOG
+// ─────────────────────────────────────────
+model ExerciseLog {
+  id               String  @id @default(cuid())
+  workoutSessionId String
+  exerciseName     String
+  exerciseOrder    Int     @default(0)
+  notes            String?
+
+  sets             ExerciseSet[]
+  workoutSession   WorkoutSession @relation(fields: [workoutSessionId], references: [id], onDelete: Cascade)
+
+  @@map("exercise_logs")
+}
+
+// ─────────────────────────────────────────
+// EXERCISE SET
+// ─────────────────────────────────────────
+model ExerciseSet {
+  id            String  @id @default(cuid())
+  exerciseLogId String
+  setNumber     Int
+  reps          Int
+  weightKg      Float   @default(0)
+  rpe           Int?    // rate of perceived exertion 1-10
+  notes         String?
+
+  exerciseLog ExerciseLog @relation(fields: [exerciseLogId], references: [id], onDelete: Cascade)
+
+  @@map("exercise_sets")
+}
+
+// ─────────────────────────────────────────
+// HABIT LOG
+// ─────────────────────────────────────────
+model HabitLog {
+  id             String   @id @default(cuid())
+  userId         String
+  date           DateTime @db.Date
+  habitKey       String
+  completed      Boolean  @default(false)
+  completedAt    DateTime?
+
+  @@unique([userId, date, habitKey])
+  @@map("habit_logs")
+}
+
+// ─────────────────────────────────────────
+// HABIT STREAK
+// ─────────────────────────────────────────
+model HabitStreak {
+  id           String   @id @default(cuid())
+  userId       String
+  habitKey     String
+  currentStreak Int     @default(0)
+  bestStreak    Int     @default(0)
+  lastUpdated   DateTime @default(now())
+
+  @@unique([userId, habitKey])
+  @@map("habit_streaks")
+}
+
+// ─────────────────────────────────────────
+// TRANSFORMATION PHOTOS
+// ─────────────────────────────────────────
+model TransformationPhoto {
+  id          String   @id @default(cuid())
+  userId      String
+  category    String   // FRONT | SIDE | BACK | FACE | HAIR
+  storageUrl  String   // Supabase Storage URL
+  storagePath String   // Path in Supabase Storage bucket
+  date        DateTime
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  @@map("transformation_photos")
+}
+
+// ─────────────────────────────────────────
+// GROCERY ITEMS
+// ─────────────────────────────────────────
+model GroceryItem {
+  id        String   @id @default(cuid())
+  userId    String
+  weekOf    DateTime @db.Date // week start date
+  category  String   // PROTEIN | CARBS | VEGETABLES | FRUITS | DAIRY | OTHER
+  name      String
+  quantity  String
+  unit      String
+  checked   Boolean  @default(false)
+  isCustom  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("grocery_items")
+}
+
+// ─────────────────────────────────────────
+// DAILY NOTES / JOURNAL
+// ─────────────────────────────────────────
+model DailyNote {
+  id        String   @id @default(cuid())
+  userId    String
+  date      DateTime @db.Date
+  note      String
+  mood      Int?     // 1-5 emoji mood
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@map("daily_notes")
+}
