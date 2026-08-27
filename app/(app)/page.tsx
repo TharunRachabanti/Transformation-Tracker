@@ -25,8 +25,8 @@ export default async function HomePage() {
   if (!profile) {
     profile = await prisma.userProfile.create({
       data: {
-        userId: user.id,
-        name: user.email?.split('@')[0] || 'User',
+        userId: userId,
+        name: userName,
       }
     })
     isNewUser = true
@@ -40,7 +40,7 @@ export default async function HomePage() {
   today.setHours(0, 0, 0, 0)
 
   const dailyLog = await prisma.dailyLog.findUnique({
-    where: { userId_date: { userId: user.id, date: today } },
+    where: { userId_date: { userId: userId, date: today } },
     include: {
       waterEntries: true,
       sleepEntry: true,
@@ -50,7 +50,7 @@ export default async function HomePage() {
   })
 
   const meals = await prisma.mealLog.findMany({
-    where: { userId: user.id, date: today },
+    where: { userId: userId, date: today },
     include: { entries: true }
   })
 
