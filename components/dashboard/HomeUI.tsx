@@ -63,7 +63,7 @@ export function HomeUI({
         <div className="flex flex-col items-center gap-1">
           <div className="relative w-16 h-16">
             <svg className="w-16 h-16 -rotate-90" viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r="27" fill="none" stroke="#0e1630" strokeWidth="5" />
+              <circle cx="32" cy="32" r="27" fill="none" stroke="#111611" strokeWidth="5" />
               <circle
                 cx="32" cy="32" r="27" fill="none"
                 stroke="url(#ring-grad)"
@@ -75,8 +75,8 @@ export function HomeUI({
               />
               <defs>
                 <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#4f7cff" />
-                  <stop offset="100%" stopColor="#9b6dff" />
+                  <stop offset="0%" stopColor="#748C70" />
+                  <stop offset="100%" stopColor="#C2A878" />
                 </linearGradient>
               </defs>
             </svg>
@@ -96,7 +96,7 @@ export function HomeUI({
         className="rounded-2xl overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, rgba(17, 28, 65, 0.9) 0%, rgba(10, 16, 38, 0.95) 100%)',
-          border: '1px solid rgba(79, 124, 255, 0.12)'
+          border: '1px solid rgba(116, 140, 112, 0.12)'
         }}
       >
         <div className="px-4 pt-4 pb-3">
@@ -113,29 +113,29 @@ export function HomeUI({
           </div>
 
           <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="bg-[#0c1528]/60 rounded-xl p-3">
+            <div className="bg-[#161c16]/60 rounded-xl p-3">
               <p className="text-[10px] text-slate-500 uppercase tracking-wide mb-1">Start</p>
               <p className="text-lg font-bold text-slate-300">{profile.startingWeight || 96}</p>
               <p className="text-[10px] text-slate-600">kg</p>
             </div>
-            <div className="rounded-xl p-3" style={{ background: 'rgba(79, 124, 255, 0.1)', border: '1px solid rgba(79, 124, 255, 0.2)' }}>
+            <div className="rounded-xl p-3" style={{ background: 'rgba(116, 140, 112, 0.1)', border: '1px solid rgba(116, 140, 112, 0.2)' }}>
               <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Current</p>
               <p className="text-2xl font-bold text-white">{todayData.currentWeight || profile.startingWeight}</p>
               <p className="text-[10px] text-slate-400">kg</p>
             </div>
-            <div className="bg-[#0c1528]/60 rounded-xl p-3">
+            <div className="bg-[#161c16]/60 rounded-xl p-3">
               <p className="text-[10px] text-slate-500 uppercase tracking-wide mb-1">Goal</p>
-              <p className="text-lg font-bold text-[#4f7cff]">{profile.targetWeight || 81}</p>
+              <p className="text-lg font-bold text-[#748C70]">{profile.targetWeight || 81}</p>
               <p className="text-[10px] text-slate-600">kg</p>
             </div>
           </div>
 
           {/* Progress to goal */}
           <div className="mt-4">
-            <div className="h-2 bg-[#0c1528] rounded-full overflow-hidden">
+            <div className="h-2 bg-[#161c16] rounded-full overflow-hidden">
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: 'linear-gradient(90deg, #4f7cff, #9b6dff)' }}
+                style={{ background: 'linear-gradient(90deg, #748C70, #C2A878)' }}
                 initial={{ width: 0 }}
                 animate={{ width: `${Math.min(100, (weightLost / Math.max(1, (profile.startingWeight || 96) - (profile.targetWeight || 81))) * 100)}%` }}
                 transition={{ duration: 1.2, ease: 'easeOut' }}
@@ -212,10 +212,10 @@ export function HomeUI({
           <div className={`rounded-xl p-3.5 flex items-center gap-3 ${
             todayData.gymCompleted
               ? 'bg-emerald-500/8 border border-emerald-500/20'
-              : 'bg-[#0e1630]/60 border border-[#1a2550]'
+              : 'bg-[#111611]/60 border border-[#232b21]'
           }`}>
             <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
-              todayData.gymCompleted ? 'bg-emerald-500/20' : 'bg-[#141e40]'
+              todayData.gymCompleted ? 'bg-emerald-500/20' : 'bg-[#1b241b]'
             }`}>
               <Dumbbell className={`w-4 h-4 ${todayData.gymCompleted ? 'text-emerald-400' : 'text-slate-600'}`} />
             </div>
@@ -283,11 +283,11 @@ function MacroCard({
       bar: 'linear-gradient(90deg, #f97316, #fb923c)' 
     },
     blue: { 
-      bg: 'rgba(79, 124, 255, 0.08)', 
-      border: 'rgba(79, 124, 255, 0.18)',
-      iconBg: 'rgba(79, 124, 255, 0.15)', 
-      text: '#60a5fa', 
-      bar: 'linear-gradient(90deg, #4f7cff, #818cf8)' 
+      bg: 'rgba(116, 140, 112, 0.08)', 
+      border: 'rgba(116, 140, 112, 0.18)',
+      iconBg: 'rgba(116, 140, 112, 0.15)', 
+      text: '#8CA488', 
+      bar: 'linear-gradient(90deg, #748C70, #D1BD96)' 
     },
     cyan: { 
       bg: 'rgba(6, 182, 212, 0.08)', 
@@ -297,9 +297,9 @@ function MacroCard({
       bar: 'linear-gradient(90deg, #06b6d4, #22d3ee)' 
     },
     green: { 
-      bg: 'rgba(0, 212, 170, 0.08)', 
-      border: 'rgba(0, 212, 170, 0.18)',
-      iconBg: 'rgba(0, 212, 170, 0.15)', 
+      bg: 'rgba(194, 168, 120, 0.08)', 
+      border: 'rgba(194, 168, 120, 0.18)',
+      iconBg: 'rgba(194, 168, 120, 0.15)', 
       text: '#34d399', 
       bar: 'linear-gradient(90deg, #00d4aa, #34d399)' 
     },
@@ -329,7 +329,7 @@ function MacroCard({
           / {fmt ? fmt(target) : target.toFixed(decimals)}{unit ? ` ${unit}` : ''}
         </span>
       </p>
-      <div className="mt-2.5 h-1 bg-[#0c1528] rounded-full overflow-hidden">
+      <div className="mt-2.5 h-1 bg-[#161c16] rounded-full overflow-hidden">
         <motion.div
           className="h-full rounded-full"
           style={{ background: c.bar }}

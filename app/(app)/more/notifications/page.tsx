@@ -17,7 +17,7 @@ export default function NotificationsPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
-        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -33,9 +33,9 @@ export default function NotificationsPage() {
         {reminders.map((reminder) => (
           <div key={reminder.key} className="flex items-center justify-between py-3 border-b border-slate-800/40 last:border-0">
             <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${reminder.enabled ? 'bg-blue-500/15' : 'bg-slate-800/40'}`}>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${reminder.enabled ? 'bg-[#748C70]/15' : 'bg-slate-800/40'}`}>
                 {reminder.enabled
-                  ? <Bell className="w-4 h-4 text-blue-400" />
+                  ? <Bell className="w-4 h-4 text-[#8CA488]" />
                   : <BellOff className="w-4 h-4 text-slate-500" />
                 }
               </div>
@@ -48,7 +48,7 @@ export default function NotificationsPage() {
             </div>
             <button
               onClick={() => toggle(reminder.key)}
-              className={`relative w-11 h-6 rounded-full transition-all ${reminder.enabled ? 'bg-blue-600' : 'bg-slate-700'}`}
+              className={`relative w-11 h-6 rounded-full transition-all ${reminder.enabled ? 'bg-[#627a5e]' : 'bg-slate-700'}`}
             >
               <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all shadow-sm ${reminder.enabled ? 'left-5' : 'left-0.5'}`} />
             </button>
@@ -65,7 +65,7 @@ export default function NotificationsPage() {
               Notification.requestPermission()
             }
           }}
-          className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-2.5 rounded-xl text-sm transition-all"
+          className="w-full bg-[#627a5e] hover:bg-[#748C70] text-white font-medium py-2.5 rounded-xl text-sm transition-all"
         >
           Request Notification Permission
         </button>

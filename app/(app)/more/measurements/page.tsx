@@ -56,7 +56,7 @@ export default function MeasurementsPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
-        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>

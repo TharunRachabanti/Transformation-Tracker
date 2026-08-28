@@ -13,7 +13,7 @@ interface ProgressBarProps {
 }
 
 const colorMap: Record<string, string> = {
-  blue: 'bg-blue-500',
+  blue: 'bg-[#748C70]',
   green: 'bg-green-500',
   orange: 'bg-orange-500',
   cyan: 'bg-cyan-500',

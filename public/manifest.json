@@ -4,8 +4,8 @@
   "description": "Personal fitness, nutrition & transformation tracking system",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#060a1c",
-  "theme_color": "#060a1c",
+  "background_color": "#0d1110",
+  "theme_color": "#0d1110",
   "orientation": "portrait",
   "icons": [
     {

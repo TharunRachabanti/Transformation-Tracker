@@ -24,7 +24,7 @@ const PREP_TASKS = [
 
 const WEEKLY_REQUIREMENTS = [
   { label: 'Chicken Breast', qty: '2.4 kg (RAW)', color: 'text-red-400', icon: '🍗' },
-  { label: 'Fish (White)', qty: '600 g (RAW)', color: 'text-blue-400', icon: '🐟' },
+  { label: 'Fish (White)', qty: '600 g (RAW)', color: 'text-[#8CA488]', icon: '🐟' },
   { label: 'Whole Eggs', qty: '21 eggs', color: 'text-yellow-400', icon: '🥚' },
   { label: 'Egg Whites', qty: '6 extras', color: 'text-yellow-300', icon: '🥚' },
   { label: 'Rice', qty: '360 g (RAW)', color: 'text-amber-400', icon: '🍚' },
@@ -52,7 +52,7 @@ export default function MealPrepPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
-        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>

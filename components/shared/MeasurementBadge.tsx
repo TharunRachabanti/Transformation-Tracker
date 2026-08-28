@@ -9,7 +9,7 @@ interface MeasurementBadgeProps {
 
 const BADGE_CONFIG = {
   RAW: { label: 'RAW', className: 'bg-orange-500/15 text-orange-400 border-orange-500/25' },
-  COOKED: { label: 'COOKED', className: 'bg-blue-500/15 text-blue-400 border-blue-500/25' },
+  COOKED: { label: 'COOKED', className: 'bg-[#748C70]/15 text-[#8CA488] border-[#748C70]/25' },
   AS_SERVED: { label: 'AS SERVED', className: 'bg-green-500/15 text-green-400 border-green-500/25' },
 }
 

@@ -58,7 +58,7 @@ export default function WeightPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
-        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -72,7 +72,7 @@ export default function WeightPage() {
         {[
           { label: 'Current', value: `${currentWeight} kg`, color: 'text-white', large: true },
           { label: 'Lost Total', value: `${(startWeight - currentWeight).toFixed(1)} kg`, color: 'text-green-400' },
-          { label: '7-Day Avg', value: `${avg7.toFixed(1)} kg`, color: 'text-blue-400' },
+          { label: '7-Day Avg', value: `${avg7.toFixed(1)} kg`, color: 'text-[#8CA488]' },
           { label: 'To Goal', value: `${(currentWeight - goalWeight).toFixed(1)} kg`, color: 'text-violet-400' },
         ].map((s) => (
           <div key={s.label} className="glass rounded-xl p-3">
@@ -91,7 +91,7 @@ export default function WeightPage() {
       {/* Weight Entry Form */}
       <div className="glass rounded-2xl p-4 space-y-3">
         <h2 className="text-sm font-semibold text-white flex items-center gap-2">
-          <Scale className="w-4 h-4 text-blue-400" />
+          <Scale className="w-4 h-4 text-[#8CA488]" />
           Log Today&apos;s Weight
         </h2>
         <div className="flex gap-2 items-center">
@@ -124,7 +124,7 @@ export default function WeightPage() {
         <button
           onClick={handleSave}
           disabled={!weight}
-          className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-medium py-3 rounded-xl transition-all"
+          className="w-full bg-[#627a5e] hover:bg-[#748C70] disabled:opacity-40 text-white font-medium py-3 rounded-xl transition-all"
         >
           Save Weight
         </button>
@@ -157,7 +157,7 @@ export default function WeightPage() {
         </div>
 
         <div className="flex gap-4 text-xs justify-center">
-          <span className="flex items-center gap-1.5 text-slate-400"><span className="w-3 h-0.5 bg-blue-500 inline-block" />Daily</span>
+          <span className="flex items-center gap-1.5 text-slate-400"><span className="w-3 h-0.5 bg-[#748C70] inline-block" />Daily</span>
           <span className="flex items-center gap-1.5 text-slate-400"><span className="w-3 h-0.5 bg-violet-500 inline-block border-dashed" />7d Avg</span>
         </div>
       </div>

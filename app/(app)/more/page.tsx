@@ -11,7 +11,7 @@ const MORE_ITEMS = [
   {
     section: 'Tracking',
     items: [
-      { href: '/more/weight', icon: Scale, label: 'Weight Entry', desc: 'Log today\'s weight', color: 'text-blue-400', bg: 'bg-blue-500/15' },
+      { href: '/more/weight', icon: Scale, label: 'Weight Entry', desc: 'Log today\'s weight', color: 'text-[#8CA488]', bg: 'bg-[#748C70]/15' },
       { href: '/more/measurements', icon: Ruler, label: 'Body Measurements', desc: 'Waist, chest, arms...', color: 'text-violet-400', bg: 'bg-violet-500/15' },
       { href: '/more/photos', icon: Camera, label: 'Transformation Photos', desc: 'Before & after comparison', color: 'text-pink-400', bg: 'bg-pink-500/15' },
     ],

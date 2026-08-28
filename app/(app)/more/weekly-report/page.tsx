@@ -43,7 +43,7 @@ export default function WeeklyReportPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3">
-        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -79,7 +79,7 @@ export default function WeeklyReportPage() {
         </div>
         <div className="bg-slate-800/40 rounded-xl p-3">
           <p className="text-[11px] text-slate-500 uppercase tracking-wide">7-Day Average</p>
-          <p className="text-2xl font-bold text-blue-400 mt-0.5">{w.avgWeight} kg</p>
+          <p className="text-2xl font-bold text-[#8CA488] mt-0.5">{w.avgWeight} kg</p>
         </div>
         <p className="text-[10px] text-slate-500 italic">Weight change calculated using 7-day rolling averages. Not based on a single day&apos;s weight.</p>
       </div>

@@ -24,7 +24,7 @@ const CATEGORY_CONFIG: Record<GroceryCategory, { label: string; icon: string; co
   CARBS: { label: 'Carbohydrates', icon: '🍚', color: 'text-yellow-400' },
   VEGETABLES: { label: 'Vegetables', icon: '🥦', color: 'text-green-400' },
   FRUITS: { label: 'Fruits', icon: '🍎', color: 'text-pink-400' },
-  DAIRY: { label: 'Dairy', icon: '🥛', color: 'text-blue-400' },
+  DAIRY: { label: 'Dairy', icon: '🥛', color: 'text-[#8CA488]' },
   OTHER: { label: 'Other', icon: '🧂', color: 'text-slate-400' },
 }
 
@@ -105,7 +105,7 @@ export default function GroceryPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -115,7 +115,7 @@ export default function GroceryPage() {
       </div>
         <button
           onClick={() => setShowAdd(!showAdd)}
-          className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center"
+          className="w-9 h-9 rounded-xl bg-[#627a5e] flex items-center justify-center"
         >
           <Plus className="w-4 h-4 text-white" />
         </button>
@@ -157,7 +157,7 @@ export default function GroceryPage() {
               ))}
             </select>
           </div>
-          <button onClick={addCustom} className="w-full bg-blue-600 hover:bg-blue-500 text-white py-2.5 rounded-xl text-sm font-medium">
+          <button onClick={addCustom} className="w-full bg-[#627a5e] hover:bg-[#748C70] text-white py-2.5 rounded-xl text-sm font-medium">
             Add Item
           </button>
         </div>

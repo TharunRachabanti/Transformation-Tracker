@@ -114,8 +114,8 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
       {/* Ambient blobs */}
-      <div className="fixed top-[-120px] right-[-80px] w-[400px] h-[400px] rounded-full bg-[#4f7cff]/6 blur-3xl pointer-events-none" />
-      <div className="fixed bottom-[-100px] left-[-60px] w-[300px] h-[300px] rounded-full bg-[#9b6dff]/5 blur-3xl pointer-events-none" />
+      <div className="fixed top-[-120px] right-[-80px] w-[400px] h-[400px] rounded-full bg-[#748C70]/6 blur-3xl pointer-events-none" />
+      <div className="fixed bottom-[-100px] left-[-60px] w-[300px] h-[300px] rounded-full bg-[#C2A878]/5 blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-md relative">
         {/* Progress bar */}
@@ -125,7 +125,7 @@ export default function OnboardingPage() {
               <div
                 key={s.id}
                 className={`flex-1 h-1 rounded-full mx-0.5 transition-all duration-500 ${
-                  i <= step ? 'bg-gradient-to-r from-[#4f7cff] to-[#9b6dff]' : 'bg-[#1a2550]'
+                  i <= step ? 'bg-gradient-to-r from-[#748C70] to-[#C2A878]' : 'bg-[#232b21]'
                 }`}
               />
             ))}
@@ -151,7 +151,7 @@ export default function OnboardingPage() {
             <div className="flex items-center gap-3 mb-6">
               <div
                 className="w-10 h-10 rounded-2xl flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #4f7cff, #9b6dff)' }}
+                style={{ background: 'linear-gradient(135deg, #748C70, #C2A878)' }}
               >
                 {(() => {
                   const Icon = STEPS[step].icon
@@ -184,14 +184,14 @@ export default function OnboardingPage() {
           {step > 0 ? (
             <button
               onClick={back}
-              className="w-11 h-11 rounded-xl bg-[#0e1630] border border-[#1a2550] text-slate-400 hover:text-white hover:border-[#2a3a72] transition-all flex items-center justify-center"
+              className="w-11 h-11 rounded-xl bg-[#111611] border border-[#232b21] text-slate-400 hover:text-white hover:border-[#2f402c] transition-all flex items-center justify-center"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
           ) : (
             <button
               onClick={skip}
-              className="flex-1 h-11 rounded-xl bg-[#0e1630] border border-[#1a2550] text-slate-500 hover:text-slate-300 hover:border-[#2a3a72] transition-all text-sm font-medium"
+              className="flex-1 h-11 rounded-xl bg-[#111611] border border-[#232b21] text-slate-500 hover:text-slate-300 hover:border-[#2f402c] transition-all text-sm font-medium"
             >
               Skip for now
             </button>
@@ -202,8 +202,8 @@ export default function OnboardingPage() {
             disabled={isPending}
             className="flex-1 h-11 rounded-xl flex items-center justify-center gap-2 font-semibold text-sm text-white transition-all disabled:opacity-50"
             style={{
-              background: 'linear-gradient(135deg, #4f7cff, #9b6dff)',
-              boxShadow: '0 4px 20px rgba(79, 124, 255, 0.25)',
+              background: 'linear-gradient(135deg, #748C70, #C2A878)',
+              boxShadow: '0 4px 20px rgba(116, 140, 112, 0.25)',
             }}
           >
             {isPending ? (
@@ -246,7 +246,7 @@ function Input({ value, onChange, placeholder, type = 'text', suffix }: {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-2 focus:ring-[#4f7cff]/15 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 transition-all"
+        className="w-full bg-[#161c16] border border-[#232b21] hover:border-[#2f402c] focus:border-[#748C70]/60 focus:ring-2 focus:ring-[#748C70]/15 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 transition-all"
         style={{ paddingRight: suffix ? '3.5rem' : undefined }}
       />
       {suffix && (
@@ -259,10 +259,10 @@ function Input({ value, onChange, placeholder, type = 'text', suffix }: {
 function StepWelcome({ form, update }: { form: FormData; update: (f: keyof FormData, v: string | number) => void }) {
   return (
     <div className="space-y-5">
-      <div className="bg-[#4f7cff]/8 border border-[#4f7cff]/15 rounded-2xl p-4 text-center">
+      <div className="bg-[#748C70]/8 border border-[#748C70]/15 rounded-2xl p-4 text-center">
         <div className="text-4xl mb-3">🚀</div>
         <p className="text-sm text-slate-300 leading-relaxed">
-          You're starting something incredible. Let's take 2 minutes to personalize your Transformation Tracker so every number you see is <span className="text-[#4f7cff] font-semibold">real and meaningful</span>.
+          You're starting something incredible. Let's take 2 minutes to personalize your Transformation Tracker so every number you see is <span className="text-[#748C70] font-semibold">real and meaningful</span>.
         </p>
       </div>
       <div>
@@ -290,7 +290,7 @@ function StepWelcome({ form, update }: { form: FormData; update: (f: keyof FormD
 function StepBody({ form, update }: { form: FormData; update: (f: keyof FormData, v: string | number) => void }) {
   return (
     <div className="space-y-4">
-      <div className="bg-[#0c1528]/60 border border-[#1a2550] rounded-2xl p-4">
+      <div className="bg-[#161c16]/60 border border-[#232b21] rounded-2xl p-4">
         <p className="text-xs text-slate-400 leading-relaxed">
           Your current measurements help us calculate your calorie and protein targets precisely. You can always update these later in Settings.
         </p>
@@ -350,8 +350,8 @@ function StepGoals({ form, update }: { form: FormData; update: (f: keyof FormDat
         </motion.div>
       )}
 
-      <div className="bg-[#4f7cff]/6 border border-[#4f7cff]/12 rounded-2xl p-4 space-y-2">
-        <p className="text-[10px] text-[#60a5fa] font-semibold uppercase tracking-wide">Healthy Rate</p>
+      <div className="bg-[#748C70]/6 border border-[#748C70]/12 rounded-2xl p-4 space-y-2">
+        <p className="text-[10px] text-[#8CA488] font-semibold uppercase tracking-wide">Healthy Rate</p>
         <p className="text-xs text-slate-400 leading-relaxed">
           We recommend a target of losing <span className="text-white font-medium">0.3–0.7 kg per week</span>. This preserves muscle while burning fat — and is sustainable long-term.
         </p>
@@ -363,7 +363,7 @@ function StepGoals({ form, update }: { form: FormData; update: (f: keyof FormDat
 function StepTargets({ form, update }: { form: FormData; update: (f: keyof FormData, v: string | number) => void }) {
   return (
     <div className="space-y-4">
-      <div className="bg-[#0c1528]/60 border border-[#1a2550] rounded-2xl p-3">
+      <div className="bg-[#161c16]/60 border border-[#232b21] rounded-2xl p-3">
         <p className="text-xs text-slate-400">
           💡 We auto-calculated recommended values based on your stats. Feel free to adjust them to match your actual plan.
         </p>
@@ -437,8 +437,8 @@ function StepFitness({ form, update }: { form: FormData; update: (f: keyof FormD
               onClick={() => update('gymDays', d)}
               className={`py-3 rounded-xl text-sm font-bold transition-all ${
                 form.gymDays === d
-                  ? 'text-white border border-[#4f7cff]/40'
-                  : 'bg-[#0c1528] border border-[#1a2550] text-slate-500 hover:text-slate-300 hover:border-[#2a3a72]'
+                  ? 'text-white border border-[#748C70]/40'
+                  : 'bg-[#161c16] border border-[#232b21] text-slate-500 hover:text-slate-300 hover:border-[#2f402c]'
               }`}
               style={form.gymDays === d ? {
                 background: 'linear-gradient(135deg, rgba(79,124,255,0.2), rgba(155,109,255,0.15))',
@@ -453,10 +453,10 @@ function StepFitness({ form, update }: { form: FormData; update: (f: keyof FormD
 
       {/* Summary Review */}
       <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(79,124,255,0.12)' }}>
-        <div className="px-4 py-3 bg-[#4f7cff]/8 border-b border-[#4f7cff]/12">
-          <p className="text-[10px] text-[#60a5fa] font-semibold uppercase tracking-wide">Review Your Profile</p>
+        <div className="px-4 py-3 bg-[#748C70]/8 border-b border-[#748C70]/12">
+          <p className="text-[10px] text-[#8CA488] font-semibold uppercase tracking-wide">Review Your Profile</p>
         </div>
-        <div className="divide-y divide-[#1a2550]">
+        <div className="divide-y divide-[#232b21]">
           {summary.map(({ label, value }) => (
             <div key={label} className="flex justify-between items-center px-4 py-2.5">
               <span className="text-xs text-slate-500">{label}</span>

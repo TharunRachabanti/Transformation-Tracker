@@ -118,21 +118,21 @@ export function WorkoutClient({
     return (
       <div className="space-y-5 pb-8">
         <div>
-          <p className="text-[10px] text-[#4f7cff] uppercase tracking-[0.2em] font-bold">{format(today, 'MMMM d')}</p>
+          <p className="text-[10px] text-[#748C70] uppercase tracking-[0.2em] font-bold">{format(today, 'MMMM d')}</p>
           <h1 className="text-[26px] font-bold text-white mt-1">Workout</h1>
         </div>
-        <div className="glass rounded-2xl p-8 text-center space-y-5 border border-[#1a2550] shadow-xl shadow-[#4f7cff]/5">
+        <div className="glass rounded-2xl p-8 text-center space-y-5 border border-[#232b21] shadow-xl shadow-[#748C70]/5">
           <div className="w-20 h-20 rounded-[24px] bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto text-4xl shadow-lg shadow-indigo-500/10">😴</div>
           <div>
             <h2 className="text-xl font-bold text-white">Rest Day</h2>
             <p className="text-slate-400 text-sm mt-1.5 leading-relaxed font-medium">Sunday is your recovery day. Aim for 7k–10k steps and follow your regular diet plan.</p>
           </div>
-          <div className="bg-[#0c1528] border border-[#1a2550] rounded-2xl p-5 text-left">
-            <p className="text-[#60a5fa] text-[10px] font-bold uppercase tracking-widest mb-3">Recovery Tips</p>
+          <div className="bg-[#161c16] border border-[#232b21] rounded-2xl p-5 text-left">
+            <p className="text-[#8CA488] text-[10px] font-bold uppercase tracking-widest mb-3">Recovery Tips</p>
             <ul className="text-slate-400 text-xs font-semibold space-y-2.5">
               {['Light walking or stretching', 'Stay hydrated (3.5L target)', 'Get 7–9 hours of sleep', 'Follow your regular meal plan'].map((tip) => (
                 <li key={tip} className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#4f7cff] shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#748C70] shrink-0" />
                   {tip}
                 </li>
               ))}
@@ -148,7 +148,7 @@ export function WorkoutClient({
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-[10px] text-[#4f7cff] font-bold uppercase tracking-[0.2em]">{format(today, 'MMMM d, yyyy')}</p>
+          <p className="text-[10px] text-[#748C70] font-bold uppercase tracking-[0.2em]">{format(today, 'MMMM d, yyyy')}</p>
           <h1 className="text-[26px] font-bold text-white mt-1">Workout</h1>
           <p className="text-sm text-slate-400 mt-0.5 font-medium">{dayLabel} · {workout.dayType.replace('_', ' ')}</p>
         </div>
@@ -165,17 +165,17 @@ export function WorkoutClient({
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass rounded-2xl p-4 grid grid-cols-3 gap-3 text-center border border-[#1a2550] shadow-lg shadow-[#4f7cff]/5"
+          className="glass rounded-2xl p-4 grid grid-cols-3 gap-3 text-center border border-[#232b21] shadow-lg shadow-[#748C70]/5"
         >
           <div>
-            <div className="flex items-center justify-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-[#60a5fa] mb-1.5">
+            <div className="flex items-center justify-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-[#8CA488] mb-1.5">
               <Weight className="w-3.5 h-3.5" /> Volume
             </div>
             <p className="text-xl font-bold text-white">{totalVolume > 0 ? `${(totalVolume / 1000).toFixed(1)}k` : '—'}</p>
             <p className="text-[10px] text-slate-500 font-medium">kg lifted</p>
           </div>
-          <div className="border-x border-[#1a2550]">
-            <div className="flex items-center justify-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-[#a87bff] mb-1.5">
+          <div className="border-x border-[#232b21]">
+            <div className="flex items-center justify-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-[#d1b787] mb-1.5">
               <Zap className="w-3.5 h-3.5" /> Sets
             </div>
             <p className="text-xl font-bold text-white">{totalSets}</p>
@@ -196,7 +196,7 @@ export function WorkoutClient({
         <button
           onClick={() => setWorkoutStarted(true)}
           className="w-full font-bold py-4 rounded-xl text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2.5"
-          style={{ background: 'linear-gradient(135deg, #4f7cff, #9b6dff)', boxShadow: '0 8px 32px rgba(79,124,255,0.25)' }}
+          style={{ background: 'linear-gradient(135deg, #748C70, #C2A878)', boxShadow: '0 8px 32px rgba(79,124,255,0.25)' }}
         >
           <Dumbbell className="w-5 h-5 text-white" />
           <span className="text-white">Begin Workout Session</span>
@@ -216,15 +216,15 @@ export function WorkoutClient({
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: exIdx * 0.04 }}
-              className="glass rounded-2xl overflow-hidden border border-[#1a2550] shadow-xl shadow-black/20"
+              className="glass rounded-2xl overflow-hidden border border-[#232b21] shadow-xl shadow-black/20"
             >
               <button
                 onClick={() => toggleExpand(ex.name)}
                 className="w-full flex items-center justify-between p-4 text-left hover:bg-white/[0.02] transition-colors"
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-[12px] bg-gradient-to-br from-[#4f7cff]/15 to-[#9b6dff]/10 border border-[#4f7cff]/30 flex items-center justify-center shrink-0 shadow-lg shadow-[#4f7cff]/10">
-                    <Dumbbell className="w-4 h-4 text-[#60a5fa]" />
+                  <div className="w-10 h-10 rounded-[12px] bg-gradient-to-br from-[#748C70]/15 to-[#C2A878]/10 border border-[#748C70]/30 flex items-center justify-center shrink-0 shadow-lg shadow-[#748C70]/10">
+                    <Dumbbell className="w-4 h-4 text-[#8CA488]" />
                   </div>
                   <div>
                     <h3 className="font-bold text-white text-sm">{ex.name}</h3>
@@ -245,17 +245,17 @@ export function WorkoutClient({
                     className="overflow-hidden bg-[#0a1024]"
                     transition={{ duration: 0.22 }}
                   >
-                    <div className="px-4 pb-5 pt-1 space-y-4 border-t border-[#1a2550]">
+                    <div className="px-4 pb-5 pt-1 space-y-4 border-t border-[#232b21]">
                       {/* Previous session */}
                       {prevSets && prevSets.length > 0 && !workoutDone && (
-                        <div className="mt-3 bg-[#0c1528] border border-[#1a2550] rounded-2xl p-3.5 text-center shadow-inner">
-                          <p className="text-[9px] text-[#60a5fa] uppercase tracking-widest font-bold mb-2.5">Last Session</p>
+                        <div className="mt-3 bg-[#161c16] border border-[#232b21] rounded-2xl p-3.5 text-center shadow-inner">
+                          <p className="text-[9px] text-[#8CA488] uppercase tracking-widest font-bold mb-2.5">Last Session</p>
                           <div className="grid grid-cols-3 gap-2">
                             {prevSets.map((s) => (
-                              <div key={s.setNumber} className="bg-[#141e40] rounded-xl py-2 px-1">
+                              <div key={s.setNumber} className="bg-[#1b241b] rounded-xl py-2 px-1">
                                 <p className="text-[9px] text-slate-400 font-semibold mb-0.5">Set {s.setNumber}</p>
                                 <p className="text-xs font-bold text-white">{s.weightKg}kg</p>
-                                <p className="text-[10px] text-[#4f7cff] font-medium">× {s.reps}</p>
+                                <p className="text-[10px] text-[#748C70] font-medium">× {s.reps}</p>
                               </div>
                             ))}
                           </div>
@@ -277,7 +277,7 @@ export function WorkoutClient({
                         {ex.sets.map((set, setIdx) => (
                           <div key={setIdx} className="grid grid-cols-[36px_1fr_1fr_32px] gap-3 items-center">
                             <div className="flex items-center justify-center">
-                              <span className="text-[11px] font-bold text-slate-400 w-7 h-7 rounded-lg bg-[#141e40] flex items-center justify-center shadow-inner">
+                              <span className="text-[11px] font-bold text-slate-400 w-7 h-7 rounded-lg bg-[#1b241b] flex items-center justify-center shadow-inner">
                                 {set.setNumber}
                               </span>
                             </div>
@@ -289,7 +289,7 @@ export function WorkoutClient({
                               placeholder="0"
                               min={0}
                               disabled={workoutDone}
-                              className="w-full min-w-0 bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-1 focus:ring-[#4f7cff]/20 rounded-xl px-0 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
+                              className="w-full min-w-0 bg-[#161c16] border border-[#232b21] hover:border-[#2f402c] focus:border-[#748C70]/60 focus:ring-1 focus:ring-[#748C70]/20 rounded-xl px-0 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
                             />
                             <input
                               type="number"
@@ -299,11 +299,11 @@ export function WorkoutClient({
                               placeholder="0"
                               min={0}
                               disabled={workoutDone}
-                              className="w-full min-w-0 bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-1 focus:ring-[#4f7cff]/20 rounded-xl px-0 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
+                              className="w-full min-w-0 bg-[#161c16] border border-[#232b21] hover:border-[#2f402c] focus:border-[#748C70]/60 focus:ring-1 focus:ring-[#748C70]/20 rounded-xl px-0 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
                             />
                             <div className="flex items-center justify-center">
                               {setIdx === ex.sets.length - 1 && ex.sets.length > 1 && !workoutDone && (
-                                <button onClick={() => removeSet(ex.name)} className="text-slate-600 hover:text-red-400 bg-[#141e40] w-7 h-7 rounded-lg flex items-center justify-center transition-colors">
+                                <button onClick={() => removeSet(ex.name)} className="text-slate-600 hover:text-red-400 bg-[#1b241b] w-7 h-7 rounded-lg flex items-center justify-center transition-colors">
                                   <Minus className="w-3.5 h-3.5" />
                                 </button>
                               )}
@@ -316,7 +316,7 @@ export function WorkoutClient({
                       {!workoutDone && (
                         <button
                           onClick={() => addSet(ex.name)}
-                          className="w-full flex items-center justify-center gap-2 text-xs font-bold text-[#60a5fa] hover:text-white py-3.5 border border-dashed border-[#4f7cff]/30 hover:border-[#4f7cff]/60 bg-[#4f7cff]/5 rounded-xl transition-all mt-4"
+                          className="w-full flex items-center justify-center gap-2 text-xs font-bold text-[#8CA488] hover:text-white py-3.5 border border-dashed border-[#748C70]/30 hover:border-[#748C70]/60 bg-[#748C70]/5 rounded-xl transition-all mt-4"
                         >
                           <Plus className="w-4 h-4" />
                           Add Set

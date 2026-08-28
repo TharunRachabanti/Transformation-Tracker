@@ -60,7 +60,7 @@ export default function PhotosPage() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+          <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
             <ChevronLeft className="w-5 h-5" />
           </Link>
           <div>
@@ -72,7 +72,7 @@ export default function PhotosPage() {
           onClick={() => setCompareMode(!compareMode)}
           className={cn(
             'text-xs px-3 py-1.5 rounded-lg border transition-all',
-            compareMode ? 'bg-blue-500/20 border-blue-500/40 text-blue-400' : 'border-slate-700/60 text-slate-400'
+            compareMode ? 'bg-[#748C70]/20 border-[#748C70]/40 text-[#8CA488]' : 'border-slate-700/60 text-slate-400'
           )}
         >
           Compare
@@ -88,7 +88,7 @@ export default function PhotosPage() {
             className={cn(
               'flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm whitespace-nowrap transition-all shrink-0',
               activeCategory === cat.key
-                ? 'bg-blue-600 text-white'
+                ? 'bg-[#627a5e] text-white'
                 : 'bg-slate-800/60 text-slate-400 hover:text-slate-200'
             )}
           >
@@ -116,7 +116,7 @@ export default function PhotosPage() {
         <input type="file" ref={fileRef} accept="image/*" multiple onChange={handleUpload} className="hidden" />
         <button
           onClick={() => fileRef.current?.click()}
-          className="w-full border-2 border-dashed border-slate-700/60 hover:border-blue-500/40 rounded-xl py-6 text-sm text-slate-400 hover:text-blue-400 transition-all flex flex-col items-center gap-2"
+          className="w-full border-2 border-dashed border-slate-700/60 hover:border-[#748C70]/40 rounded-xl py-6 text-sm text-slate-400 hover:text-[#8CA488] transition-all flex flex-col items-center gap-2"
         >
           <Upload className="w-6 h-6" />
           Tap to upload {activeCategory.toLowerCase()} photo

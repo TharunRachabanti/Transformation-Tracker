@@ -87,7 +87,7 @@ export function SettingsClient({ initialSettings }: { initialSettings: SettingsS
   return (
     <div className="space-y-5 pb-8">
       <div className="flex items-center gap-3">
-        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#161c16] border border-[#232b21] text-[#8CA488] flex items-center justify-center hover:bg-[#1b241b] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#8CA488]/5">
           <ChevronLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -97,7 +97,7 @@ export function SettingsClient({ initialSettings }: { initialSettings: SettingsS
       </div>
 
       {SECTIONS.map((section) => (
-        <div key={section.title} className="glass rounded-2xl p-4 space-y-4 border border-[#1a2550]">
+        <div key={section.title} className="glass rounded-2xl p-4 space-y-4 border border-[#232b21]">
           <h2 className="text-sm font-semibold text-white flex items-center gap-2">
             <span>{section.icon}</span> {section.title}
           </h2>
@@ -113,7 +113,7 @@ export function SettingsClient({ initialSettings }: { initialSettings: SettingsS
                   min={field.min || undefined}
                   max={field.max || undefined}
                   step={field.key === 'sleepTargetH' ? 0.5 : 1}
-                  className="w-full bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-1 focus:ring-[#4f7cff]/20 rounded-xl px-4 py-3 text-sm text-white transition-all"
+                  className="w-full bg-[#161c16] border border-[#232b21] hover:border-[#2f402c] focus:border-[#748C70]/60 focus:ring-1 focus:ring-[#748C70]/20 rounded-xl px-4 py-3 text-sm text-white transition-all"
                   style={{ paddingRight: field.unit ? '3.5rem' : undefined }}
                 />
                 {field.unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-500 pointer-events-none">{field.unit}</span>}
@@ -137,7 +137,7 @@ export function SettingsClient({ initialSettings }: { initialSettings: SettingsS
       <button
         onClick={handleSave}
         disabled={saving}
-        className="w-full bg-gradient-to-r from-[#4f7cff] to-[#9b6dff] hover:from-[#5f8aff] hover:to-[#a87bff] text-white font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#4f7cff]/20 disabled:opacity-50"
+        className="w-full bg-gradient-to-r from-[#748C70] to-[#C2A878] hover:from-[#839c7f] hover:to-[#d1b787] text-white font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#748C70]/20 disabled:opacity-50"
       >
         <Save className="w-4 h-4" />
         {saving ? 'Saving...' : 'Save All Settings'}

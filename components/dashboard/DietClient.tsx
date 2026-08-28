@@ -139,13 +139,13 @@ export function DietClient({
     <div className="space-y-5 pb-8">
       {/* Header */}
       <div>
-        <p className="text-[10px] text-[#4f7cff] font-bold uppercase tracking-[0.2em]">{format(today, 'MMMM d, yyyy')}</p>
+        <p className="text-[10px] text-[#748C70] font-bold uppercase tracking-[0.2em]">{format(today, 'MMMM d, yyyy')}</p>
         <h1 className="text-2xl font-bold text-white mt-1">Diet Plan</h1>
         <p className="text-sm text-slate-400 mt-0.5">{dayLabel} · {planLabel}</p>
       </div>
 
       {/* Progress Summary Card */}
-      <div className="glass border border-[#1a2550] rounded-2xl p-5 shadow-lg shadow-[#4f7cff]/5">
+      <div className="glass border border-[#232b21] rounded-2xl p-5 shadow-lg shadow-[#748C70]/5">
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-sm font-semibold text-white">{completedMeals.size} of {plan.meals.length} meals</p>
@@ -157,10 +157,10 @@ export function DietClient({
           </div>
         </div>
 
-        <div className="h-1.5 bg-[#0c1528] rounded-full overflow-hidden mb-5">
+        <div className="h-1.5 bg-[#161c16] rounded-full overflow-hidden mb-5">
           <motion.div
             className="h-full rounded-full"
-            style={{ background: 'linear-gradient(90deg, #4f7cff, #9b6dff)' }}
+            style={{ background: 'linear-gradient(90deg, #748C70, #C2A878)' }}
             initial={{ width: 0 }}
             animate={{ width: `${completionPct}%` }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -169,12 +169,12 @@ export function DietClient({
 
         <div className="grid grid-cols-2 gap-4">
           <NutrBox label="Calories" value={Math.round(consumedNutrition.calories)} target={targetCalories} unit="kcal" color="#f97316" bg="bg-orange-500/15" />
-          <NutrBox label="Protein" value={Math.round(consumedNutrition.proteinG)} target={targetProtein} unit="g" color="#4f7cff" bg="bg-[#4f7cff]/15" />
+          <NutrBox label="Protein" value={Math.round(consumedNutrition.proteinG)} target={targetProtein} unit="g" color="#748C70" bg="bg-[#748C70]/15" />
         </div>
       </div>
 
       {/* Oil Tracker */}
-      <div className="glass border border-[#1a2550] rounded-2xl p-4">
+      <div className="glass border border-[#232b21] rounded-2xl p-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-[10px] bg-amber-500/15 flex items-center justify-center">
@@ -196,17 +196,17 @@ export function DietClient({
         </div>
         <div className="grid grid-cols-2 gap-3">
           {(['lunch', 'dinner'] as const).map((meal) => (
-            <div key={meal} className="bg-[#0c1528] border border-[#1a2550] rounded-xl p-3 text-center">
+            <div key={meal} className="bg-[#161c16] border border-[#232b21] rounded-xl p-3 text-center">
               <p className="text-[9px] text-slate-500 uppercase tracking-widest font-semibold mb-2">{meal}</p>
               <div className="flex items-center justify-between">
                 <button
                   onClick={() => setOilUsed((o) => ({ ...o, [meal]: Math.max(0, o[meal] - 1) }))}
-                  className="w-8 h-8 rounded-[10px] bg-[#141e40] text-slate-400 flex items-center justify-center hover:bg-[#1a2550] transition-colors border border-[#1a2550]"
+                  className="w-8 h-8 rounded-[10px] bg-[#1b241b] text-slate-400 flex items-center justify-center hover:bg-[#232b21] transition-colors border border-[#232b21]"
                 >−</button>
                 <span className="text-base font-bold text-white">{oilUsed[meal]}g</span>
                 <button
                   onClick={() => setOilUsed((o) => ({ ...o, [meal]: Math.min(10, o[meal] + 1) }))}
-                  className="w-8 h-8 rounded-[10px] bg-[#141e40] text-slate-400 flex items-center justify-center hover:bg-[#1a2550] transition-colors border border-[#1a2550]"
+                  className="w-8 h-8 rounded-[10px] bg-[#1b241b] text-slate-400 flex items-center justify-center hover:bg-[#232b21] transition-colors border border-[#232b21]"
                 >+</button>
               </div>
             </div>
@@ -240,7 +240,7 @@ export function DietClient({
 function NutrBox({ label, value, target, unit, color, bg }: { label: string; value: number; target: number; unit: string; color: string; bg: string }) {
   const pct = Math.min(100, Math.round((value / target) * 100)) || 0
   return (
-    <div className="bg-[#0c1528] rounded-xl p-3 border border-[#1a2550]">
+    <div className="bg-[#161c16] rounded-xl p-3 border border-[#232b21]">
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center gap-1.5">
           <div className={`w-2 h-2 rounded-full`} style={{ backgroundColor: color }} />
@@ -248,7 +248,7 @@ function NutrBox({ label, value, target, unit, color, bg }: { label: string; val
         </div>
         <span className="text-xs font-semibold text-white">{value}<span className="text-[10px] text-slate-500 font-normal">/{target} {unit}</span></span>
       </div>
-      <div className="h-1.5 bg-[#141e40] rounded-full overflow-hidden">
+      <div className="h-1.5 bg-[#1b241b] rounded-full overflow-hidden">
         <motion.div
           className="h-full rounded-full"
           style={{ backgroundColor: color }}
@@ -293,7 +293,7 @@ function MealCard({
       transition={{ delay }}
       className={cn(
         'rounded-2xl overflow-hidden transition-all duration-300 relative',
-        completed ? 'border border-emerald-500/20' : 'border border-[#1a2550]'
+        completed ? 'border border-emerald-500/20' : 'border border-[#232b21]'
       )}
       style={{
         background: completed ? 'rgba(16, 185, 129, 0.03)' : 'rgba(14, 22, 48, 0.6)'
@@ -302,7 +302,7 @@ function MealCard({
       <button onClick={onToggleExpand} className="w-full flex items-center gap-3 p-4 text-left">
         <div className={cn(
           'w-10 h-10 rounded-[12px] flex items-center justify-center text-xl shrink-0',
-          completed ? 'bg-emerald-500/10' : 'bg-[#141e40] border border-[#1a2550]'
+          completed ? 'bg-emerald-500/10' : 'bg-[#1b241b] border border-[#232b21]'
         )}>
           {completed ? '✅' : emoji}
         </div>
@@ -345,9 +345,9 @@ function MealCard({
              transition={{ duration: 0.22, ease: 'easeInOut' }}
              className="overflow-hidden"
           >
-             <div className="px-4 pb-4 border-t border-[#1a2550]">
+             <div className="px-4 pb-4 border-t border-[#232b21]">
                 {meal.notes && (
-                  <p className="text-xs text-slate-400 italic bg-[#0c1528] rounded-xl px-3 py-2.5 mt-4 border border-[#1a2550]/60 shadow-inner block">{meal.notes}</p>
+                  <p className="text-xs text-slate-400 italic bg-[#161c16] rounded-xl px-3 py-2.5 mt-4 border border-[#232b21]/60 shadow-inner block">{meal.notes}</p>
                 )}
 
                 <div className="mt-3">
@@ -367,8 +367,8 @@ function MealCard({
                                 className={cn(
                                   'text-xs py-2 px-3 rounded-xl border transition-all text-left flex items-center justify-between',
                                   (fruitChoice ?? food.foodId) === alt.foodId
-                                    ? 'bg-gradient-to-br from-[#4f7cff]/15 to-[#9b6dff]/10 border-[#4f7cff]/30 text-[#60a5fa]'
-                                    : 'bg-[#0c1528] border-[#1a2550] text-slate-400 hover:border-[#2a3a72]'
+                                    ? 'bg-gradient-to-br from-[#748C70]/15 to-[#C2A878]/10 border-[#748C70]/30 text-[#8CA488]'
+                                    : 'bg-[#161c16] border-[#232b21] text-slate-400 hover:border-[#2f402c]'
                                 )}
                               >
                                 <span className="font-medium">{alt.label ?? alt.foodId}</span>
@@ -381,12 +381,12 @@ function MealCard({
                     }
 
                     return (
-                      <div key={i} className="flex items-center justify-between py-3 border-b border-[#1a2550]/50 last:border-0 last:pb-1">
+                      <div key={i} className="flex items-center justify-between py-3 border-b border-[#232b21]/50 last:border-0 last:pb-1">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#4f7cff] opacity-80 shrink-0 shadow-[0_0_8px_rgba(79,124,255,0.8)]" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#748C70] opacity-80 shrink-0 shadow-[0_0_8px_rgba(79,124,255,0.8)]" />
                           <span className="text-sm text-slate-200 truncate">{food.foodId}</span>
                           {food.isOptional && (
-                            <span className="text-[9px] bg-[#141e40] text-slate-400 px-1.5 py-0.5 rounded border border-[#1a2550] uppercase tracking-wide shrink-0">opt</span>
+                            <span className="text-[9px] bg-[#1b241b] text-slate-400 px-1.5 py-0.5 rounded border border-[#232b21] uppercase tracking-wide shrink-0">opt</span>
                           )}
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
@@ -398,7 +398,7 @@ function MealCard({
                   })}
                 </div>
 
-                <div className="flex items-center justify-between mt-4 bg-[#0c1528] rounded-xl p-3 border border-[#1a2550]">
+                <div className="flex items-center justify-between mt-4 bg-[#161c16] rounded-xl p-3 border border-[#232b21]">
                   <div className="flex gap-4 text-[10px] text-slate-400 font-medium">
                     <span className="flex items-center gap-1"><Flame className="w-3.5 h-3.5 text-orange-400" />{Math.round(nutrition.calories)}</span>
                     <span className="flex items-center before:content-['•'] before:mr-3 before:text-slate-700">{Math.round(nutrition.proteinG)}g p</span>

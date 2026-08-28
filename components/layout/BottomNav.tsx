@@ -23,7 +23,7 @@ export function BottomNav() {
     <nav className="fixed bottom-0 left-0 right-0 z-[100] lg:hidden w-full">
       {/* Blur backdrop */}
       <div
-        className="border-t border-[#314682] bg-[#060a1c]"
+        className="border-t border-[#32402f] bg-[#0d1110]"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 12px)' }}
       >
         <div className="flex items-center justify-around px-2 pt-2.5 pb-1">
@@ -50,7 +50,7 @@ export function BottomNav() {
                 {isActive && (
                   <motion.div
                     layoutId="nav-pill"
-                    className="absolute inset-x-0 top-0 bottom-0 rounded-2xl bg-[#4f7cff]/10 border border-[#4f7cff]/15"
+                    className="absolute inset-x-0 top-0 bottom-0 rounded-2xl bg-[#748C70]/10 border border-[#748C70]/15"
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
@@ -59,14 +59,14 @@ export function BottomNav() {
                     className={cn(
                       'w-[18px] h-[18px] transition-all duration-200',
                       isActive
-                        ? 'text-[#4f7cff]'
+                        ? 'text-[#748C70]'
                         : 'text-slate-600 group-hover:text-slate-400'
                     )}
                     strokeWidth={isActive ? 2.5 : 1.5}
                   />
                   <span className={cn(
                     'text-[9px] font-semibold tracking-wide transition-colors',
-                    isActive ? 'text-[#4f7cff]' : 'text-slate-600 group-hover:text-slate-400'
+                    isActive ? 'text-[#748C70]' : 'text-slate-600 group-hover:text-slate-400'
                   )}>
                     {item.label}
                   </span>

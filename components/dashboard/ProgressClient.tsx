@@ -146,8 +146,8 @@ export function ProgressClient({
             className={cn(
               'flex-1 py-3 text-xs font-semibold rounded-xl transition-all',
               filter === value
-                ? 'bg-[#4f7cff] text-white shadow-lg shadow-[#4f7cff]/20'
-                : 'bg-[#0e1630] border border-[#1a2550] text-slate-400 hover:text-slate-200'
+                ? 'bg-[#748C70] text-white shadow-lg shadow-[#748C70]/20'
+                : 'bg-[#111611] border border-[#232b21] text-slate-400 hover:text-slate-200'
             )}
           >
             {label}
@@ -156,7 +156,7 @@ export function ProgressClient({
       </div>
 
       {/* Weight Summary */}
-      <div className="glass rounded-2xl p-4 space-y-4 border border-[#1a2550]">
+      <div className="glass rounded-2xl p-4 space-y-4 border border-[#232b21]">
         <div className="flex items-center gap-2 mb-1">
           <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center">
             <TrendingDown className="w-4 h-4 text-emerald-400" />
@@ -166,7 +166,7 @@ export function ProgressClient({
         <div className="grid grid-cols-3 gap-3 text-center">
           <Stat label="Lost" value={`${lostWeight.toFixed(1)} kg`} color="text-emerald-400" />
           <Stat label="Current" value={`${currentWeight.toFixed(1)} kg`} color="text-white" large />
-          <Stat label="To Goal" value={`${toGoWeight.toFixed(1)} kg`} color="text-[#4f7cff]" />
+          <Stat label="To Goal" value={`${toGoWeight.toFixed(1)} kg`} color="text-[#748C70]" />
         </div>
 
         {/* Weight Chart */}
@@ -176,16 +176,16 @@ export function ProgressClient({
               <AreaChart data={dataWithAvg} margin={{ left: -25, right: 5, top: 5, bottom: 0 }}>
                 <defs>
                   <linearGradient id="weightGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#4f7cff" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#4f7cff" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#748C70" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#748C70" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                 <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 10 }} tickLine={false} interval="preserveStartEnd" minTickGap={20} />
                 <YAxis domain={['auto', 'auto']} tick={{ fill: '#64748b', fontSize: 10 }} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} />
-                <Area type="monotone" dataKey="weight" name="Weight" stroke="#4f7cff" fill="url(#weightGrad)" strokeWidth={3} dot={false} unit=" kg" />
-                <Line type="monotone" dataKey="avg7" name="7d Avg" stroke="#9b6dff" strokeWidth={2} dot={false} unit=" kg" strokeDasharray="4 2" />
+                <Area type="monotone" dataKey="weight" name="Weight" stroke="#748C70" fill="url(#weightGrad)" strokeWidth={3} dot={false} unit=" kg" />
+                <Line type="monotone" dataKey="avg7" name="7d Avg" stroke="#C2A878" strokeWidth={2} dot={false} unit=" kg" strokeDasharray="4 2" />
                 <ReferenceLine y={goalWeight} stroke="#22c55e" strokeDasharray="4 2" opacity={0.8} />
               </AreaChart>
             </ResponsiveContainer>
@@ -197,17 +197,17 @@ export function ProgressClient({
           )}
         </div>
         <div className="flex gap-4 text-[10px] justify-center mt-2 font-medium">
-          <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#4f7cff] inline-block rounded" />Daily</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#9b6dff] inline-block rounded" />7d Avg</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#748C70] inline-block rounded" />Daily</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-[#C2A878] inline-block rounded" />7d Avg</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-emerald-500 inline-block rounded" />Goal</span>
         </div>
       </div>
 
       {/* Goal Milestones */}
-      <div className="glass rounded-2xl p-4 space-y-4 border border-[#1a2550]">
+      <div className="glass rounded-2xl p-4 space-y-4 border border-[#232b21]">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[#4f7cff]/15 flex items-center justify-center">
-            <Target className="w-4 h-4 text-[#4f7cff]" />
+          <div className="w-7 h-7 rounded-lg bg-[#748C70]/15 flex items-center justify-center">
+            <Target className="w-4 h-4 text-[#748C70]" />
           </div>
           <h2 className="text-sm font-semibold text-white">Goal Milestones</h2>
         </div>
@@ -222,8 +222,8 @@ export function ProgressClient({
                   reached
                     ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
                     : isGoal
-                      ? 'bg-[#4f7cff]/15 border-[#4f7cff]/40 text-[#4f7cff]'
-                      : 'bg-[#0e1630] border-[#1a2550] text-slate-500'
+                      ? 'bg-[#748C70]/15 border-[#748C70]/40 text-[#748C70]'
+                      : 'bg-[#111611] border-[#232b21] text-slate-500'
                 )}>
                   {reached ? '✓' : i + 1}
                 </div>
@@ -232,9 +232,9 @@ export function ProgressClient({
                     <span className={cn('text-sm font-semibold', reached ? 'text-white' : 'text-slate-300')}>{m.weightKg} kg</span>
                     <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">{m.label}</span>
                   </div>
-                  {i === 0 && <div className="h-1 bg-[#1a2550] rounded-full" />}
+                  {i === 0 && <div className="h-1 bg-[#232b21] rounded-full" />}
                   {i > 0 && (
-                    <div className="h-1.5 bg-[#1a2550] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[#232b21] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-emerald-500 rounded-full transition-all"
                         style={{
@@ -253,7 +253,7 @@ export function ProgressClient({
       </div>
 
       {/* Transformation Score Placeholder */}
-      <div className="glass rounded-2xl p-4 space-y-4 border border-[#1a2550]">
+      <div className="glass rounded-2xl p-4 space-y-4 border border-[#232b21]">
         <div>
           <h2 className="text-sm font-semibold text-white">Transformation Score</h2>
           <p className="text-[10px] text-slate-500 mt-0.5">Based on consistency over the past {days} days</p>
@@ -261,7 +261,7 @@ export function ProgressClient({
         <div className="flex items-center gap-4">
           <div className="relative w-20 h-20 shrink-0">
             <svg className="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
-              <circle cx="40" cy="40" r="32" fill="none" stroke="#1a2550" strokeWidth="8" />
+              <circle cx="40" cy="40" r="32" fill="none" stroke="#232b21" strokeWidth="8" />
               <motion.circle
                 cx="40" cy="40" r="32" fill="none"
                 stroke={score.total >= 80 ? '#34d399' : score.total >= 60 ? '#fbbf24' : '#f87171'}
@@ -280,12 +280,12 @@ export function ProgressClient({
           <div className="flex-1 space-y-2">
             {[
               { key: 'diet', label: 'Diet', max: SCORE_WEIGHTS.diet, value: score.diet, tColor: 'text-orange-400', bColor: 'bg-orange-500' },
-              { key: 'workout', label: 'Workout', max: SCORE_WEIGHTS.workout, value: score.workout, tColor: 'text-blue-400', bColor: 'bg-[#4f7cff]' },
+              { key: 'workout', label: 'Workout', max: SCORE_WEIGHTS.workout, value: score.workout, tColor: 'text-[#8CA488]', bColor: 'bg-[#748C70]' },
               { key: 'steps', label: 'Steps', max: SCORE_WEIGHTS.steps, value: score.steps, tColor: 'text-emerald-400', bColor: 'bg-emerald-500' },
             ].map((s) => (
               <div key={s.key} className="flex items-center gap-3 text-xs w-full">
                 <span className="text-slate-500 uppercase tracking-wider text-[9px] font-semibold w-12 shrink-0">{s.label}</span>
-                <div className="flex-1 h-1.5 bg-[#1a2550] rounded-full overflow-hidden">
+                <div className="flex-1 h-1.5 bg-[#232b21] rounded-full overflow-hidden">
                   <motion.div
                     className={cn("h-full rounded-full", s.bColor)}
                     initial={{ width: 0 }}
@@ -301,7 +301,7 @@ export function ProgressClient({
       </div>
 
       {/* Calories Chart */}
-      <div className="glass rounded-2xl p-4 space-y-4 border border-[#1a2550]">
+      <div className="glass rounded-2xl p-4 space-y-4 border border-[#232b21]">
         <h2 className="text-sm font-semibold text-white flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-orange-500/15 flex items-center justify-center">
             <span className="text-xs">🔥</span>
@@ -327,7 +327,7 @@ export function ProgressClient({
       </div>
 
       {/* Steps Chart */}
-      <div className="glass rounded-2xl p-4 space-y-4 border border-[#1a2550]">
+      <div className="glass rounded-2xl p-4 space-y-4 border border-[#232b21]">
         <h2 className="text-sm font-semibold text-white flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center">
             <Footprints className="w-4 h-4 text-emerald-400" />
@@ -357,7 +357,7 @@ export function ProgressClient({
 
 function Stat({ label, value, color, large }: { label: string; value: string; color: string; large?: boolean }) {
   return (
-    <div className="bg-[#0c1528] rounded-xl p-3 border border-[#1a2550]">
+    <div className="bg-[#161c16] rounded-xl p-3 border border-[#232b21]">
       <p className="text-[9px] text-slate-500 uppercase tracking-widest font-semibold mb-1">{label}</p>
       <p className={cn('font-bold', color, large ? 'text-2xl' : 'text-lg')}>{value}</p>
     </div>

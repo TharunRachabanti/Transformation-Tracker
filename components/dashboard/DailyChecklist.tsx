@@ -71,7 +71,7 @@ export function DailyChecklist({ date = new Date().toISOString(), initialItems =
         <div className="flex items-center gap-2">
           <span className="text-sm text-slate-400">{completed}/{total}</span>
           <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center">
-            <span className="text-xs font-bold text-blue-400">{pct}%</span>
+            <span className="text-xs font-bold text-[#8CA488]">{pct}%</span>
           </div>
         </div>
       </div>

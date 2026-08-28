@@ -61,7 +61,7 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm',
                   isActive
-                    ? 'bg-blue-500/20 text-blue-400 font-medium'
+                    ? 'bg-[#748C70]/20 text-[#8CA488] font-medium'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
                 )}
               >
@@ -84,7 +84,7 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm',
                   isActive
-                    ? 'bg-blue-500/20 text-blue-400 font-medium'
+                    ? 'bg-[#748C70]/20 text-[#8CA488] font-medium'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
                 )}
               >
