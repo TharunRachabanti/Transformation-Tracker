@@ -20,11 +20,11 @@ export function BottomNav() {
   const { activeTab, setActiveTab } = useAppStore()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-[100] lg:hidden w-full">
       {/* Blur backdrop */}
       <div
-        className="border-t border-[#1a2550]/80 bottom-nav"
-        style={{ background: 'rgba(6, 10, 28, 0.92)', backdropFilter: 'blur(24px)' }}
+        className="border-t border-[#314682] bg-[#060a1c]"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom, 12px)' }}
       >
         <div className="flex items-center justify-around px-2 pt-2.5 pb-1">
           {navItems.map((item) => {

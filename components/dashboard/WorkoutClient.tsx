@@ -289,7 +289,7 @@ export function WorkoutClient({
                               placeholder="0"
                               min={0}
                               disabled={workoutDone}
-                              className="bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-1 focus:ring-[#4f7cff]/20 rounded-xl px-3 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
+                              className="w-full min-w-0 bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-1 focus:ring-[#4f7cff]/20 rounded-xl px-0 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
                             />
                             <input
                               type="number"
@@ -299,7 +299,7 @@ export function WorkoutClient({
                               placeholder="0"
                               min={0}
                               disabled={workoutDone}
-                              className="bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-1 focus:ring-[#4f7cff]/20 rounded-xl px-3 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
+                              className="w-full min-w-0 bg-[#0c1528] border border-[#1a2550] hover:border-[#2a3a72] focus:border-[#4f7cff]/60 focus:ring-1 focus:ring-[#4f7cff]/20 rounded-xl px-0 py-3 text-sm text-white font-mono text-center transition-all disabled:opacity-50"
                             />
                             <div className="flex items-center justify-center">
                               {setIdx === ex.sets.length - 1 && ex.sets.length > 1 && !workoutDone && (
