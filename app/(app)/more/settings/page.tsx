@@ -15,5 +15,8 @@ export default async function SettingsPage() {
 
   if (!profile) redirect('/onboarding')
 
-  return <SettingsClient initialSettings={profile as any} />
+  // Prevent next.js RSC Date serialization errors
+  const safeProfile = JSON.parse(JSON.stringify(profile))
+
+  return <SettingsClient initialSettings={safeProfile as any} />
 }

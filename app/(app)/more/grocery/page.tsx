@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ShoppingCart, CheckCircle2, Circle, Plus, Trash2, Edit2 } from 'lucide-react'
+import { ShoppingCart, CheckCircle2, Circle, Plus, Trash2, Edit2, ChevronLeft } from 'lucide-react'
+import Link from 'next/link'
 import { TTS_PLAN, MWF_PLAN } from '@/data/mealPlans'
 import { FOOD_DATABASE } from '@/data/nutrition'
 import { cn } from '@/lib/utils'
@@ -103,10 +104,15 @@ export default function GroceryPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+          <ChevronLeft className="w-5 h-5" />
+        </Link>
         <div>
-          <h1 className="text-2xl font-bold text-white">Grocery List</h1>
-          <p className="text-sm text-slate-400 mt-0.5">Week auto-generated · {checkedCount}/{items.length} bought</p>
+          <h1 className="text-xl font-bold text-white">Grocery List</h1>
+          <p className="text-[11px] font-medium text-slate-400 mt-0.5">Week auto-generated · {checkedCount}/{items.length} bought</p>
         </div>
+      </div>
         <button
           onClick={() => setShowAdd(!showAdd)}
           className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center"
