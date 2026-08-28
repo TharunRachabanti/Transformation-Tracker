@@ -19,38 +19,45 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
-      <div className="glass border-t border-slate-800/60 bottom-nav">
-        <div className="flex items-center justify-around px-2 pt-2 pb-1">
+      {/* Blur backdrop */}
+      <div
+        className="border-t border-[#1a2550]/80 bottom-nav"
+        style={{ background: 'rgba(6, 10, 28, 0.92)', backdropFilter: 'blur(24px)' }}
+      >
+        <div className="flex items-center justify-around px-2 pt-2.5 pb-1">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex flex-col items-center gap-0.5 touch-target justify-center px-3 relative"
+                className="flex flex-col items-center gap-1 touch-target justify-center px-2 relative group"
               >
+                {/* Active background pill */}
                 {isActive && (
                   <motion.div
-                    layoutId="bottom-nav-indicator"
-                    className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-blue-500"
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                    layoutId="nav-pill"
+                    className="absolute inset-x-0 top-0 bottom-0 rounded-2xl bg-[#4f7cff]/10 border border-[#4f7cff]/15"
+                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
-                <item.icon
-                  className={cn(
-                    'w-5 h-5 transition-colors',
-                    isActive ? 'text-blue-400' : 'text-slate-500'
-                  )}
-                  strokeWidth={isActive ? 2.5 : 1.5}
-                />
-                <span
-                  className={cn(
-                    'text-[10px] font-medium transition-colors',
-                    isActive ? 'text-blue-400' : 'text-slate-500'
-                  )}
-                >
-                  {item.label}
-                </span>
+                <div className="relative z-10 flex flex-col items-center gap-1">
+                  <item.icon
+                    className={cn(
+                      'w-[18px] h-[18px] transition-all duration-200',
+                      isActive
+                        ? 'text-[#4f7cff]'
+                        : 'text-slate-600 group-hover:text-slate-400'
+                    )}
+                    strokeWidth={isActive ? 2.5 : 1.5}
+                  />
+                  <span className={cn(
+                    'text-[9px] font-semibold tracking-wide transition-colors',
+                    isActive ? 'text-[#4f7cff]' : 'text-slate-600 group-hover:text-slate-400'
+                  )}>
+                    {item.label}
+                  </span>
+                </div>
               </Link>
             )
           })}

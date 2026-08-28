@@ -1,75 +1,141 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-    --radius: 0.75rem;
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --border: 216 34% 14%;
+    --ring: 224 76% 55%;
+    --radius: 0.9rem;
+
+    /* Brand Colors */
+    --brand-primary: #4f7cff;
+    --brand-secondary: #9b6dff;
+    --brand-accent: #00d4aa;
+    --brand-warm: #ff6b35;
+
+    /* Surface Colors */
+    --surface-1: rgba(15, 20, 40, 0.95);
+    --surface-2: rgba(20, 28, 55, 0.90);
+    --surface-3: rgba(28, 38, 72, 0.85);
+  }
+
+  * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    background: #080d1e;
+    color: #e2e8f0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e2d5c; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #2d4080; }
 
-/* Safe area for mobile */
-.safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-}
+/* ── Safe area for mobile ──────────────────────────────────── */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.bottom-nav { padding-bottom: max(env(safe-area-inset-bottom), 0.5rem); }
 
-/* Bottom nav safe area */
-.bottom-nav {
-  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
-}
-
-/* Glass effect */
+/* ── Glass Cards ───────────────────────────────────────────── */
 .glass {
-  background-color: rgb(15 23 42 / 0.8);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgb(30 41 59 / 0.6);
+  background: linear-gradient(135deg, rgba(20, 30, 65, 0.85) 0%, rgba(12, 18, 42, 0.90) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(79, 124, 255, 0.1);
 }
 
-/* Touch targets */
-.touch-target {
-  min-height: 44px;
-  min-width: 44px;
+.glass-warm {
+  background: linear-gradient(135deg, rgba(30, 20, 50, 0.85) 0%, rgba(18, 12, 38, 0.90) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(155, 109, 255, 0.12);
 }
 
-/* Gradient text */
+/* ── Gradient Text ─────────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(to right, #60a5fa, #a78bfa);
+  background: linear-gradient(135deg, #4f7cff 0%, #9b6dff 50%, #00d4aa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Shimmer loading */
+.gradient-text-warm {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff9a56 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Touch targets ─────────────────────────────────────────── */
+.touch-target { min-height: 44px; min-width: 44px; }
+
+/* ── Shimmer Loading ───────────────────────────────────────── */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% { background-position: -400% 0; }
+  100% { background-position: 400% 0; }
 }
 
 .shimmer {
-  background: linear-gradient(
-    90deg,
-    #1e293b 25%,
-    #334155 50%,
-    #1e293b 75%
+  background: linear-gradient(90deg,
+    rgba(20, 30, 65, 0.6) 25%,
+    rgba(40, 58, 110, 0.6) 50%,
+    rgba(20, 30, 65, 0.6) 75%
   );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+  background-size: 400% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ── Glow Effects ─────────────────────────────────────────── */
+.glow-blue { box-shadow: 0 0 30px rgba(79, 124, 255, 0.15); }
+.glow-purple { box-shadow: 0 0 30px rgba(155, 109, 255, 0.15); }
+.glow-green { box-shadow: 0 0 30px rgba(0, 212, 170, 0.12); }
+
+/* ── Pulse Animation ───────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 124, 255, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(79, 124, 255, 0.4); }
+}
+
+.pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+/* ── Page transitions ──────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.35s ease forwards; }
+
+/* ── Input Focus ───────────────────────────────────────────── */
+input:focus, textarea:focus {
+  outline: none;
+}
+
+/* ── Card hover ────────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(79, 124, 255, 0.12);
+}
+
+/* ── Bottom Nav Active Indicator ──────────────────────────── */
+.nav-active-dot {
+  width: 4px;
+  height: 4px;
+  background: #4f7cff;
+  border-radius: 9999px;
+  margin: 0 auto;
+  margin-top: 3px;
+}
+
+/* ── Metric Ring ───────────────────────────────────────────── */
+@keyframes ring-fill {
+  from { stroke-dashoffset: 9999; }
 }
