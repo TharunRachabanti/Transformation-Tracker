@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { Droplets, Plus, Minus, Trash2, Clock } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { calcProgress, formatWater } from '@/lib/utils'
 import { format } from 'date-fns'
+import { addWaterEntry, deleteWaterEntry } from '@/app/(app)/actions'
 
 const QUICK_AMOUNTS = [250, 500, 750]
 
@@ -17,28 +18,41 @@ interface WaterEntry {
 interface WaterTrackerProps {
   currentMl?: number
   targetMl?: number
+  initialEntries?: WaterEntry[]
+  date?: string
 }
 
-export function WaterTracker({ currentMl: initMl = 0, targetMl = 3500 }: WaterTrackerProps) {
-  const [entries, setEntries] = useState<WaterEntry[]>([])
+export function WaterTracker({ currentMl: initMl = 0, targetMl = 3500, initialEntries = [], date = new Date().toISOString() }: WaterTrackerProps) {
+  const [entries, setEntries] = useState<WaterEntry[]>(initialEntries)
   const [totalMl, setTotalMl] = useState(initMl)
   const [customMl, setCustomMl] = useState('')
   const [showCustom, setShowCustom] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   function addWater(ml: number) {
     if (ml <= 0) return
     const entry: WaterEntry = {
-      id: crypto.randomUUID(),
+      id: crypto.randomUUID(), // optimistic ID
       amountMl: ml,
       recordedAt: new Date(),
     }
     setEntries((prev) => [...prev, entry])
     setTotalMl((prev) => prev + ml)
+    
+    startTransition(() => {
+      addWaterEntry(new Date(date), ml).catch(console.error)
+    })
   }
 
   function removeEntry(id: string, ml: number) {
     setEntries((prev) => prev.filter((e) => e.id !== id))
     setTotalMl((prev) => Math.max(0, prev - ml))
+    
+    startTransition(() => {
+      if (id.length > 20) { // If it's a real DB uuid and not a random optimistic one
+        deleteWaterEntry(new Date(date), id).catch(console.error)
+      }
+    })
   }
 
   function handleCustomAdd() {

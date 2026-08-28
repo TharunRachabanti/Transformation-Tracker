@@ -19,6 +19,8 @@ export interface DashboardData {
   mealsCompleted: number
   totalMeals: number
   currentWeight: number
+  waterEntries: any[]
+  checklistItems: any[]
 }
 
 export function HomeUI({ 
@@ -236,6 +238,8 @@ export function HomeUI({
         <WaterTracker
           currentMl={todayData.waterMl}
           targetMl={profile.waterTargetMl || 3500}
+          initialEntries={todayData.waterEntries}
+          date={today.toISOString()}
         />
       </motion.div>
 
@@ -245,7 +249,10 @@ export function HomeUI({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <DailyChecklist />
+        <DailyChecklist 
+          date={today.toISOString()}
+          initialItems={todayData.checklistItems}
+        />
       </motion.div>
     </div>
   )

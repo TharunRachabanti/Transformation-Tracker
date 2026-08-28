@@ -37,7 +37,18 @@ export function ProgressClient({
   historyData 
 }: { 
   profile: any
-  historyData: { date: string; weight: number | null; calories: number; steps: number }[] 
+  historyData: { 
+    date: string
+    weight: number | null
+    calories: number
+    protein: number
+    steps: number
+    waterMl: number
+    sleepMin: number
+    gymCompleted: boolean
+    checklistCompleted: number
+    mealsCompleted: number
+  }[] 
 }) {
   const [filter, setFilter] = useState<TimeFilter>('30D')
   const days = TIME_FILTERS.find((f) => f.value === filter)?.days ?? 30
@@ -54,7 +65,13 @@ export function ProgressClient({
       date: format(parseISO(d.date), 'MMM d'),
       weight: lastKnownWeight,
       calories: d.calories,
-      steps: d.steps
+      protein: d.protein,
+      steps: d.steps,
+      waterMl: d.waterMl,
+      sleepMin: d.sleepMin,
+      gymCompleted: d.gymCompleted,
+      checklistCompleted: d.checklistCompleted,
+      mealsCompleted: d.mealsCompleted
     }
   }).filter(d => d.dateObj >= startDate)
 
@@ -71,8 +88,45 @@ export function ProgressClient({
   const lostWeight = Math.max(0, startWeight - currentWeight)
   const toGoWeight = Math.max(0, currentWeight - goalWeight)
 
-  // Score placeholder for now (would be calculated based on real habits)
-  const score = { total: 82, diet: 16, protein: 15, workout: 18, steps: 11, water: 8, sleep: 10, habits: 4 }
+  // Dynamically compute the Transformation Score over the filtered period
+  let sDiet = 0, sProtein = 0, sWorkout = 0, sSteps = 0, sWater = 0, sSleep = 0, sHabits = 0
+  const len = Math.max(1, dataWithAvg.length)
+
+  dataWithAvg.forEach(d => {
+    // Diet (Meals completed): max 6 meals a day
+    sDiet += Math.min(1, d.mealsCompleted / 6)
+    // Protein: 
+    sProtein += Math.min(1, d.protein / (profile.proteinTargetG ?? 160))
+    // Workout
+    if (d.gymCompleted) sWorkout += 1
+    // Steps
+    sSteps += Math.min(1, d.steps / (profile.stepTarget ?? 10000))
+    // Water
+    sWater += Math.min(1, d.waterMl / (profile.waterTargetMl ?? 3500))
+    // Sleep
+    sSleep += Math.min(1, d.sleepMin / ((profile.sleepTargetH ?? 8) * 60))
+    // Habits (Checklist completed relative to total 15 items)
+    sHabits += Math.min(1, d.checklistCompleted / 15)
+  })
+
+  const score = {
+    total: Math.round(
+      (sDiet / len) * SCORE_WEIGHTS.diet + 
+      (sProtein / len) * SCORE_WEIGHTS.protein + 
+      (sWorkout / len) * SCORE_WEIGHTS.workout + 
+      (sSteps / len) * SCORE_WEIGHTS.steps + 
+      (sWater / len) * SCORE_WEIGHTS.water + 
+      (sSleep / len) * SCORE_WEIGHTS.sleep + 
+      (sHabits / len) * SCORE_WEIGHTS.habits
+    ),
+    diet: Math.round((sDiet / len) * SCORE_WEIGHTS.diet),
+    protein: Math.round((sProtein / len) * SCORE_WEIGHTS.protein),
+    workout: Math.round((sWorkout / len) * SCORE_WEIGHTS.workout),
+    steps: Math.round((sSteps / len) * SCORE_WEIGHTS.steps),
+    water: Math.round((sWater / len) * SCORE_WEIGHTS.water),
+    sleep: Math.round((sSleep / len) * SCORE_WEIGHTS.sleep),
+    habits: Math.round((sHabits / len) * SCORE_WEIGHTS.habits),
+  }
   const scoreColor = score.total >= 80 ? 'text-green-400' : score.total >= 60 ? 'text-yellow-400' : 'text-red-400'
 
   return (

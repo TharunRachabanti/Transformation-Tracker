@@ -27,7 +27,12 @@ export default async function ProgressPage() {
         userId: user.id,
         date: { gte: startDate, lte: endDate }
       },
-      include: { weightEntry: true }
+      include: { 
+        weightEntry: true,
+        waterEntries: true,
+        sleepEntry: true,
+        checklistItems: true,
+      }
     }),
     prisma.mealLog.findMany({
       where: {
@@ -39,30 +44,37 @@ export default async function ProgressPage() {
   ])
 
   // Aggregate data by date
-  const historyMap = new Map<string, { weight: number | null; calories: number; steps: number }>()
+  const historyMap = new Map<string, { weight: number | null; calories: number; protein: number; steps: number; waterMl: number; sleepMin: number; gymCompleted: boolean; checklistCompleted: number; mealsCompleted: number }>()
 
   // Initialize map for all dates in range with default 0s
   for (let i = 0; i <= 90; i++) {
     const d = format(subDays(new Date(), i), 'yyyy-MM-dd')
-    historyMap.set(d, { weight: null, calories: 0, steps: 0 })
+    historyMap.set(d, { weight: null, calories: 0, protein: 0, steps: 0, waterMl: 0, sleepMin: 0, gymCompleted: false, checklistCompleted: 0, mealsCompleted: 0 })
   }
 
   // Populate actual data
-  dailyLogs.forEach(log => {
+  dailyLogs.forEach((log: any) => {
     const d = format(log.date, 'yyyy-MM-dd')
     const existing = historyMap.get(d)
     if (existing) {
       existing.weight = log.weightEntry?.weightKg ?? null
       existing.steps = log.steps ?? 0
+      existing.waterMl = log.waterEntries.reduce((sum: number, e: any) => sum + e.amountMl, 0)
+      existing.sleepMin = log.sleepEntry?.durationMin ?? 0
+      existing.gymCompleted = log.gymCompleted
+      existing.checklistCompleted = log.checklistItems.filter((i: any) => i.completed).length
     }
   })
 
-  meals.forEach(meal => {
+  meals.forEach((meal: any) => {
     const d = format(meal.date, 'yyyy-MM-dd')
     const existing = historyMap.get(d)
     if (existing) {
-      const mealCals = meal.entries.reduce((sum, e) => sum + e.calories, 0)
+      const mealCals = meal.entries.reduce((sum: number, e: any) => sum + e.calories, 0)
+      const mealProtein = meal.entries.reduce((sum: number, e: any) => sum + e.proteinG, 0)
       existing.calories += mealCals
+      existing.protein += mealProtein
+      if (meal.completed) existing.mealsCompleted += 1
     }
   })
 

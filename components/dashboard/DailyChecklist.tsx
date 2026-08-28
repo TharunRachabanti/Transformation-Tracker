@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 import { CheckCircle2, Circle, Clock } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
 import { CHECKLIST_TEMPLATE } from '@/data/plans'
+import { toggleChecklistItem } from '@/app/(app)/actions'
 
 interface ChecklistItemState {
   key: string
@@ -15,27 +16,47 @@ interface ChecklistItemState {
   sortOrder: number
 }
 
-export function DailyChecklist() {
-  const [items, setItems] = useState<ChecklistItemState[]>(
-    CHECKLIST_TEMPLATE.map((t) => ({
-      ...t,
-      completed: false,
-      completedAt: null,
-    }))
-  )
+interface DBChecklistItem {
+  key: string
+  label: string
+  completed: boolean
+  completedAt: Date | string | null
+}
 
-  function toggle(key: string) {
+export function DailyChecklist({ date = new Date().toISOString(), initialItems = [] }: { date?: string, initialItems?: DBChecklistItem[] }) {
+  const [items, setItems] = useState<ChecklistItemState[]>(() => {
+    // Map initialItems to the template
+    return CHECKLIST_TEMPLATE.map((t) => {
+      const existing = initialItems.find(i => i.key === t.key)
+      return {
+        ...t,
+        completed: existing?.completed ?? false,
+        completedAt: existing?.completedAt ? new Date(existing.completedAt) : null,
+      }
+    })
+  })
+  
+  const [isPending, startTransition] = useTransition()
+
+  function toggle(key: string, label: string) {
+    let nextCompletedState = false
     setItems((prev) =>
-      prev.map((item) =>
-        item.key === key
-          ? {
-              ...item,
-              completed: !item.completed,
-              completedAt: !item.completed ? new Date() : null,
-            }
-          : item
-      )
+      prev.map((item) => {
+        if (item.key === key) {
+          nextCompletedState = !item.completed
+          return {
+            ...item,
+            completed: nextCompletedState,
+            completedAt: !item.completed ? new Date() : null,
+          }
+        }
+        return item
+      })
     )
+
+    startTransition(() => {
+      toggleChecklistItem(new Date(date), key, label, nextCompletedState).catch(console.error)
+    })
   }
 
   const completed = items.filter((i) => i.completed).length
@@ -69,7 +90,7 @@ export function DailyChecklist() {
         {items.map((item) => (
           <button
             key={item.key}
-            onClick={() => toggle(item.key)}
+            onClick={() => toggle(item.key, item.label)}
             className={cn(
               'w-full flex items-center gap-3 p-3 rounded-xl transition-all touch-target text-left',
               item.completed

@@ -86,11 +86,13 @@ export default async function HomePage() {
     mealsCompleted,
     totalMeals: Math.max(6, meals.length),
     currentWeight: typeof currentWeight === 'number' ? currentWeight : (profile.startingWeight ?? 80),
+    waterEntries: dailyLog?.waterEntries ?? [],
+    checklistItems: dailyLog?.checklistItems ?? [],
   }
 
   return (
     <HomeUI
-      todayData={dashboardData}
+      todayData={dashboardData as any}
       profile={profile}
       dayCount={dayCount}
       completionPct={completionPct}
