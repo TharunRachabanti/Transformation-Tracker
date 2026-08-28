@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { format } from 'date-fns'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Plus, Minus, Dumbbell, Trophy, ChevronDown, ChevronUp, Timer, Zap, Weight } from 'lucide-react'
-import { finishWorkout } from './actions'
+import { finishWorkout } from '@/app/(app)/actions'
 
 interface SetLog {
   setNumber: number

@@ -5,17 +5,19 @@ import { usePathname } from 'next/navigation'
 import { Home, Utensils, Dumbbell, TrendingUp, MoreHorizontal } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
+import { useAppStore } from '@/store/app-store'
 
 const navItems = [
-  { href: '/', label: 'Home', icon: Home },
-  { href: '/diet', label: 'Diet', icon: Utensils },
-  { href: '/workout', label: 'Workout', icon: Dumbbell },
-  { href: '/progress', label: 'Progress', icon: TrendingUp },
-  { href: '/more', label: 'More', icon: MoreHorizontal },
+  { id: 'home', href: '/', label: 'Home', icon: Home },
+  { id: 'diet', href: '/', label: 'Diet', icon: Utensils },
+  { id: 'workout', href: '/', label: 'Workout', icon: Dumbbell },
+  { id: 'progress', href: '/', label: 'Progress', icon: TrendingUp },
+  { id: 'more', href: '/more', label: 'More', icon: MoreHorizontal },
 ]
 
 export function BottomNav() {
   const pathname = usePathname()
+  const { activeTab, setActiveTab } = useAppStore()
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
@@ -26,12 +28,22 @@ export function BottomNav() {
       >
         <div className="flex items-center justify-around px-2 pt-2.5 pb-1">
           {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
+            const isMoreTab = item.id === 'more'
+            // Active if it's the More tab and we are on a /more route, or if we're on / and activeTab matches
+            const isActive = isMoreTab 
+              ? pathname.startsWith('/more') 
+              : pathname === '/' && activeTab === item.id
+
             return (
               <Link
-                key={item.href}
+                key={item.id}
                 href={item.href}
                 prefetch={true}
+                onClick={() => {
+                  if (!isMoreTab) {
+                    setActiveTab(item.id as 'home' | 'diet' | 'workout' | 'progress')
+                  }
+                }}
                 className="flex flex-col items-center gap-1 touch-target justify-center px-2 relative group"
               >
                 {/* Active background pill */}

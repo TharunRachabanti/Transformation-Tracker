@@ -7,12 +7,13 @@ import {
   Ruler, Camera, ShoppingCart, ChefHat, FileText, Bell
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAppStore } from '@/store/app-store'
 
 const mainNav = [
-  { href: '/', label: 'Home', icon: Home },
-  { href: '/diet', label: 'Diet', icon: Utensils },
-  { href: '/workout', label: 'Workout', icon: Dumbbell },
-  { href: '/progress', label: 'Progress', icon: TrendingUp },
+  { id: 'home', href: '/', label: 'Home', icon: Home },
+  { id: 'diet', href: '/', label: 'Diet', icon: Utensils },
+  { id: 'workout', href: '/', label: 'Workout', icon: Dumbbell },
+  { id: 'progress', href: '/', label: 'Progress', icon: TrendingUp },
 ]
 
 const moreNav = [
@@ -28,6 +29,7 @@ const moreNav = [
 
 export function Sidebar() {
   const pathname = usePathname()
+  const { activeTab, setActiveTab } = useAppStore()
 
   return (
     <aside className="hidden lg:flex flex-col w-64 h-screen fixed left-0 top-0 glass border-r border-slate-800/60 z-50">
@@ -49,12 +51,13 @@ export function Sidebar() {
         <p className="text-[10px] uppercase tracking-widest text-slate-500 px-3 mb-2">Main</p>
         <div className="space-y-0.5">
           {mainNav.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))
+            const isActive = pathname === '/' && activeTab === item.id
             return (
               <Link
-                key={item.href}
+                key={item.id}
                 href={item.href}
                 prefetch={true}
+                onClick={() => setActiveTab(item.id as 'home' | 'diet' | 'workout' | 'progress')}
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm',
                   isActive

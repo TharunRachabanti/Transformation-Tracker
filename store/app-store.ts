@@ -23,6 +23,10 @@ interface AppState {
   theme: 'dark' | 'light'
   toggleTheme: () => void
 
+  // SPA Navigation
+  activeTab: 'home' | 'diet' | 'workout' | 'progress'
+  setActiveTab: (tab: 'home' | 'diet' | 'workout' | 'progress') => void
+
   // startDate
   startDate: string
 }
@@ -70,6 +74,9 @@ export const useAppStore = create<AppState>()(
       toggleTheme: () =>
         set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
 
+      activeTab: 'home',
+      setActiveTab: (tab) => set({ activeTab: tab }),
+
       startDate: '2025-01-01',
     }),
     {
@@ -78,6 +85,7 @@ export const useAppStore = create<AppState>()(
         profile: state.profile,
         theme: state.theme,
         startDate: state.startDate,
+        activeTab: state.activeTab,
       }),
     }
   )

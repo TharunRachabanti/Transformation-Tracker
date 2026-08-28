@@ -8,7 +8,7 @@ import { FOOD_DATABASE, calcNutrition } from '@/data/nutrition'
 import { MeasurementBadge } from '@/components/shared/MeasurementBadge'
 import { cn } from '@/lib/utils'
 import { MealConfig, MealFoodConfig } from '@/types'
-import { toggleMealComplete } from './actions'
+import { toggleMealComplete } from '@/app/(app)/actions'
 
 const foodLookup: Record<string, typeof FOOD_DATABASE[0]> = {}
 FOOD_DATABASE.forEach((f) => { foodLookup[f.name] = f })
