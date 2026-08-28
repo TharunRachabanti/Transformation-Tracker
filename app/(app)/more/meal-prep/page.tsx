@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { ChefHat, CheckCircle2, Circle } from 'lucide-react'
+import { ChefHat, CheckCircle2, Circle, ChevronLeft } from 'lucide-react'
+import Link from 'next/link'
 
 const PREP_TASKS = [
   { id: '1', label: 'Buy chicken breast (2.4 kg)', done: false },
@@ -50,9 +51,14 @@ export default function MealPrepPage() {
 
   return (
     <div className="space-y-5">
-      <div>
-        <h1 className="text-2xl font-bold text-white">Meal Prep</h1>
-        <p className="text-sm text-slate-400 mt-0.5">Weekly ingredient requirements & prep checklist</p>
+      <div className="flex items-center gap-3">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+          <ChevronLeft className="w-5 h-5" />
+        </Link>
+        <div>
+          <h1 className="text-xl font-bold text-white">Meal Prep</h1>
+          <p className="text-[11px] font-medium text-slate-400 mt-0.5">Weekly ingredient requirements & prep checklist</p>
+        </div>
       </div>
 
       {/* Weekly Requirements */}

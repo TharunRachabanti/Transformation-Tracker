@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { User, Save, LogOut } from 'lucide-react'
+import { User, Save, LogOut, ChevronLeft } from 'lucide-react'
+import Link from 'next/link'
 import { WEIGHT_MILESTONES } from '@/data/plans'
 import { getDaysSinceStart } from '@/lib/utils'
 import { updateProfile, signOutUser } from '../actions'
@@ -43,9 +44,14 @@ export function ProfileClient({ initialProfile }: { initialProfile: any }) {
 
   return (
     <div className="space-y-5">
-      <div>
-        <h1 className="text-2xl font-bold text-white">Profile</h1>
-        <p className="text-sm text-slate-400 mt-0.5">Day #{dayCount} of your transformation</p>
+      <div className="flex items-center gap-3">
+        <Link href="/more" className="w-10 h-10 rounded-xl bg-[#0c1528] border border-[#1a2550] text-[#60a5fa] flex items-center justify-center hover:bg-[#141e40] hover:text-white transition-colors shrink-0 shadow-lg shadow-[#60a5fa]/5">
+          <ChevronLeft className="w-5 h-5" />
+        </Link>
+        <div>
+          <h1 className="text-xl font-bold text-white">Profile</h1>
+          <p className="text-[11px] font-medium text-slate-400 mt-0.5">Day #{dayCount} of your transformation</p>
+        </div>
       </div>
 
       {/* Avatar */}
