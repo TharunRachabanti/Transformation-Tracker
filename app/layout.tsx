@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   keywords: ['fitness', 'nutrition', 'workout', 'transformation', 'weight loss'],
   authors: [{ name: 'Tharun' }],
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Track',
+  },
 }
 
 export const viewport: Viewport = {
