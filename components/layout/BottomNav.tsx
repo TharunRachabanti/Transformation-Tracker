@@ -31,6 +31,7 @@ export function BottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={true}
                 className="flex flex-col items-center gap-1 touch-target justify-center px-2 relative group"
               >
                 {/* Active background pill */}
