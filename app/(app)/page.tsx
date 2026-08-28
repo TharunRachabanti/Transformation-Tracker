@@ -2,86 +2,90 @@ import prisma from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
 import { HomeUI } from '@/components/dashboard/HomeUI'
 import { getDaysSinceStart } from '@/lib/utils'
+import { redirect } from 'next/navigation'
+
 export default async function HomePage() {
-  const { cookies } = await import('next/headers')
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  const cookieStore = await cookies()
-  const devBypass = cookieStore.get('dev_bypass')?.value === 'true'
 
-  if (!user && !devBypass) {
-    return null // middleware redirects unauthenticated users
-  }
+  // Not authenticated → middleware handles the redirect, but just in case:
+  if (!user) redirect('/auth')
 
-  const userId = user?.id || 'dev-bypass-user-123'
-  const userName = user?.email?.split('@')[0] || 'DevBypass'
+  const userId = user.id
+  const userName = user.email?.split('@')[0] || 'User'
 
-  // 1. Fetch or create user profile
-  let profile = await prisma.userProfile.findUnique({
-    where: { userId: userId }
+  // 1. Fetch user profile
+  const profile = await prisma.userProfile.findUnique({
+    where: { userId }
   })
 
-  let isNewUser = false
+  // 2. New user with no profile → send to onboarding wizard
   if (!profile) {
-    profile = await prisma.userProfile.create({
-      data: {
-        userId: userId,
-        name: userName,
-      }
-    })
-    isNewUser = true
+    redirect('/onboarding')
   }
 
-  // 2. Determine Day Count
+  // 3. Determine Day Count since start
   const dayCount = getDaysSinceStart(profile.startDate)
 
-  // 3. Get or construct today's data
+  // 4. Get today's logged data
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
-  const dailyLog = await prisma.dailyLog.findUnique({
-    where: { userId_date: { userId: userId, date: today } },
-    include: {
-      waterEntries: true,
-      sleepEntry: true,
-      weightEntry: true,
-      checklistItems: true,
-    }
-  })
+  const [dailyLog, meals] = await Promise.all([
+    prisma.dailyLog.findUnique({
+      where: { userId_date: { userId, date: today } },
+      include: {
+        waterEntries: true,
+        sleepEntry: true,
+        weightEntry: true,
+        checklistItems: true,
+      }
+    }),
+    prisma.mealLog.findMany({
+      where: { userId, date: today },
+      include: { entries: true }
+    })
+  ])
 
-  const meals = await prisma.mealLog.findMany({
-    where: { userId: userId, date: today },
-    include: { entries: true }
-  })
-
-  // Calculate actuals
+  // 5. Calculate nutritional totals
   let totalCalories = 0
   let totalProtein = 0
   let mealsCompleted = 0
 
-  meals.forEach(meal => {
+  meals.forEach((meal: { completed: boolean; entries: { calories: number; proteinG: number }[] }) => {
     if (meal.completed) mealsCompleted++
-    meal.entries.forEach(e => {
+    meal.entries.forEach((e: { calories: number; proteinG: number }) => {
       totalCalories += e.calories
       totalProtein += e.proteinG
     })
   })
 
-  const waterMl = dailyLog?.waterEntries.reduce((acc, curr) => acc + curr.amountMl, 0) || 0
-  const sleepMin = dailyLog?.sleepEntry?.durationMin || 0
-  const gymCompleted = dailyLog?.gymCompleted || false
-  const currentWeight = dailyLog?.weightEntry?.weightKg || profile.startingWeight
+  const waterMl = dailyLog?.waterEntries.reduce((acc: number, curr: { amountMl: number }) => acc + curr.amountMl, 0) ?? 0
+  const sleepMin = dailyLog?.sleepEntry?.durationMin ?? 0
+  const gymCompleted = dailyLog?.gymCompleted ?? false
+  const currentWeight = dailyLog?.weightEntry?.weightKg ?? profile.startingWeight
+
+  // 6. Compute completion % (checklist + key daily habits)
+  const completionItems = [
+    mealsCompleted > 0,
+    waterMl >= (profile.waterTargetMl ?? 3500) * 0.5,
+    gymCompleted,
+    (dailyLog?.steps ?? 0) >= (profile.stepTarget ?? 10000) * 0.5,
+  ]
+  const completionPct = Math.round(
+    (completionItems.filter(Boolean).length / completionItems.length) * 100
+  )
 
   const dashboardData = {
     calories: Math.round(totalCalories),
     protein: Math.round(totalProtein),
     waterMl,
-    steps: dailyLog?.steps || 0,
+    steps: dailyLog?.steps ?? 0,
     sleepMin,
     gymCompleted,
     mealsCompleted,
-    totalMeals: isNewUser ? 0 : Math.max(6, meals.length),
-    currentWeight,
+    totalMeals: Math.max(6, meals.length),
+    currentWeight: typeof currentWeight === 'number' ? currentWeight : (profile.startingWeight ?? 80),
   }
 
   return (
@@ -89,7 +93,7 @@ export default async function HomePage() {
       todayData={dashboardData}
       profile={profile}
       dayCount={dayCount}
-      completionPct={0} // Replace with actual checklist logic down the road
+      completionPct={completionPct}
     />
   )
 }

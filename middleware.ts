@@ -1,16 +1,25 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  // Auth middleware - only active when Supabase is configured
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-  // Skip auth when Supabase isn't configured (dev mode without credentials)
+  // Skip auth when Supabase isn't configured
   if (!supabaseUrl || supabaseUrl === 'https://dummy.supabase.co' || !supabaseKey || supabaseKey === 'dummy_key') {
     return NextResponse.next()
   }
 
-  // When Supabase IS configured, protect routes
+  const pathname = request.nextUrl.pathname
+
+  // Always allow static files and auth/onboarding routes
+  if (
+    pathname.startsWith('/auth') ||
+    pathname.startsWith('/onboarding') ||
+    pathname.startsWith('/api')
+  ) {
+    return NextResponse.next()
+  }
+
   try {
     const { createServerClient } = await import('@supabase/ssr')
     let response = NextResponse.next({ request })
@@ -28,28 +37,17 @@ export async function middleware(request: NextRequest) {
       },
     })
 
-    // 3. Bypass Auth for strict local dev testing without hitting Supabase rate limits
-    const devBypassCookie = request.cookies.get('dev_bypass')
-    if (devBypassCookie?.value === 'true' && process.env.NODE_ENV !== 'production') {
-      // If they are on auth page, redirect to dashboard
-      if (request.nextUrl.pathname.startsWith('/auth')) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/'
-        return NextResponse.redirect(url)
-      }
-      // Allow all other paths seamlessly
-      return response
-    }
-
-    // 4. Extract user session
     const { data: { user } } = await supabase.auth.getUser()
 
-    if (!user && !request.nextUrl.pathname.startsWith('/auth')) {
+    // Not logged in → go to auth
+    if (!user) {
       const url = request.nextUrl.clone()
       url.pathname = '/auth'
       return NextResponse.redirect(url)
     }
 
+    // Logged in and headed somewhere → allow through
+    // (new user detection happens at page level in app/(app)/page.tsx)
     return response
   } catch {
     return NextResponse.next()
